@@ -6,6 +6,8 @@ services:
     ports:
       - 8081:8080
       - 28015:28015
+    volumes:
+      - ./db/exhibitions/data:/app
     networks:
       - net
 
@@ -22,7 +24,7 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - ./fulltext/data:/usr/share/elasticsearch/data
+      - ./db/fulltext/data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
     restart: always
@@ -35,7 +37,7 @@ services:
     ports:
       - 6333:6333
     volumes:
-      - ./vectorspace/data:/qdrant/storage
+      - ./db/vectorspace/data:/qdrant/storage
 
 networks:
   net:
