@@ -1,0 +1,22 @@
+{
+  "name": "livia-experimental-browser",
+  "version": "0.1.0",
+  "private": true,
+  "description": "An experimental web application to browser connections between artworks",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "author": "",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "@astrojs/svelte": "^1.0.0",
+    "@astrojs/tailwind": "^1.0.0",
+    "astro": "^1.0.7"
+  },
+  "dependencies": {
+    "svelte": "^3.49.0"
+  }
+}
