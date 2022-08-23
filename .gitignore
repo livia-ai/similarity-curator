@@ -1,1 +1,5 @@
 node_modules
+server/fulltext/data/*
+!server/fulltext/data/.gitkeep
+server/vectorspace/data/*
+!server/vectorspace/data/.gitkeep
