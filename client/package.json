@@ -9,8 +9,6 @@
     "build": "astro build",
     "preview": "astro preview"
   },
-  "author": "",
-  "license": "BSD-3-Clause",
   "devDependencies": {
     "@astrojs/svelte": "^1.0.0",
     "@astrojs/tailwind": "^1.0.0",
