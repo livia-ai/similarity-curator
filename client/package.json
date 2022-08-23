@@ -17,6 +17,7 @@
     "astro": "^1.0.7"
   },
   "dependencies": {
-    "svelte": "^3.49.0"
+    "svelte": "^3.49.0",
+    "svelte-carousel": "^1.0.19"
   }
 }
