@@ -4,6 +4,7 @@
   "private": true,
   "description": "Utilities for preparing MAK metadata for use with the exploratory browser",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "start": "node src/index.js"
   },
