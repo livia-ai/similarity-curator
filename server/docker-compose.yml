@@ -12,13 +12,14 @@ services:
       - net
 
   elastic:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.3.0
     container_name: elasticsearch
     environment:
       - cluster.name=es-cluster
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx4096m"
       - discovery.type=single-node
+      - xpack.security.enabled=false
     ulimits:
       memlock:
         soft: -1
