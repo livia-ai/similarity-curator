@@ -17,18 +17,25 @@ const MAPPING = {
 const client = new Client({ node: 'http://localhost:9200' });
 
 const init = () => {
-  console.log('Checking ES index...');
+  console.log('Checking if index exists');
 
   client.indices.exists({ index: 'livia' }).then(exists => {
     if (!exists) {
       client.indices.create({ 
         index: 'livia',
         body: { mappings: MAPPING }
-      }).then(() => {
-        console.log('...created new index. Ingesting data.');
+      }).then(data => {
+        console.log('No index - created new');
+        console.log('Loading data');
         ingest().then(data => {
-          // TODO ingest data into ES
-          console.log('Ingest complete.' );
+          console.log('Preparing data for ingest');
+          
+          const operations = data.flatMap(doc => ([ { index: { _index: 'livia' } }, doc ]));
+          console.log('Ingesting');
+
+          client.bulk({ refresh: true, operations }).then(bulkResponse => {
+            console.log('Ingest complete' );
+          })         
         });
       });
     } else {
