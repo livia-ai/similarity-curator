@@ -17,7 +17,7 @@ const MAPPING = {
 const client = new Client({ node: 'http://localhost:9200' });
 
 const init = () => {
-  console.log('Checking if index exists');
+  console.log('[ElasticSearch] Checking if index exists');
 
   client.indices.exists({ index: 'livia' }).then(exists => {
     if (!exists) {
@@ -25,21 +25,21 @@ const init = () => {
         index: 'livia',
         body: { mappings: MAPPING }
       }).then(data => {
-        console.log('No index - created new');
-        console.log('Loading data');
+        console.log('[ElasticSearch] No index - created new');
+        console.log('[ElasticSearch] Loading data');
         ingest().then(data => {
-          console.log('Preparing data for ingest');
+          console.log('[ElasticSearch] Preparing data for ingest');
           
           const operations = data.flatMap(doc => ([ { index: { _index: 'livia' } }, doc ]));
-          console.log('Ingesting');
+          console.log('[ElasticSearch] Ingesting');
 
           client.bulk({ refresh: true, operations }).then(bulkResponse => {
-            console.log('Ingest complete' );
+            console.log('[ElasticSearch] Ingest complete' );
           })         
         });
       });
     } else {
-      console.log('...exists');
+      console.log('[ElasticSearch] Exists');
     }
   });
 }

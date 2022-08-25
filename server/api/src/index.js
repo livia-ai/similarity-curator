@@ -1,12 +1,15 @@
-import API from './API';
-import Config from './Config';
-import es from './ElasticSearch';
+import API from './API.js';
+import Config from './Config.js';
+
+import es from './ElasticSearch.js';
+import qdrant from './Qdrant.js';
 
 const server = API();
 
 const start = async () => {
 
   es.init();
+  qdrant.init();
 
   try {
     server.listen({ port: Config.API_PORT, host: '0.0.0.0' });
