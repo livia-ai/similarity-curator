@@ -1,9 +1,15 @@
 import fs from 'fs';
+import { v4 as uuidv4 } from 'uuid';
 import fetch from 'node-fetch';
+import LineByLineReader from 'line-by-line';
+import zlib from 'zlib';
 import { Qdrant } from 'qdrant';
 
 const DATA_URL = 'https://dl.dropboxusercontent.com/s/uvz12ze382yuqyb/mak-vectors.jsonl.gz';
+
 const DATA_PATH = '../data/mak-vectors.jsonl.gz';
+
+const INGEST_BATCH_SIZE = 1000;
 
 const client = new Qdrant('http://localhost:6333/');
 
@@ -48,6 +54,33 @@ const download = async () => {
 
 const ingest = async () => {
   console.log('[Qdrant] Preparing data for ingest');
+
+  const stream = 
+    fs.createReadStream(DATA_PATH)
+      .pipe(zlib.createGunzip());
+
+  const lr = new LineByLineReader(stream);
+
+  let batch = [];
+
+  lr.on('line', line => {
+    batch.push({
+      id: uuidv4(),
+      payload: { 
+        id: line.priref, 
+        museum: 'MAK'
+      }, 
+      vector: line.vector
+    });
+
+    // TODO batch + ingest
+    // lr.pause();
+
+  });
+
+  lr.on('end', () => {
+    console.log('[Qdrant] Ingest complete');
+  });
 }
 
 export default {

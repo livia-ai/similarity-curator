@@ -79,7 +79,7 @@
    }
  
    // Only include records with "rights"="bewilligt"
-   if (rights === 'bewilligt') {
+   if (firstReproduction && rights === 'bewilligt') {
      compactRecord.vector = embeddings.get(priref);
      meta.push(compactRecord);
    }

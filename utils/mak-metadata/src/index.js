@@ -63,7 +63,7 @@ function readOne(idx = 0) {
   }
 
   // Only include records with "rights"="bewilligt"
-  if (rights === 'bewilligt')
+  if (firstReproduction && rights === 'bewilligt')
     meta.push(compactRecord);
 
   if (idx === files.length - 1) {
