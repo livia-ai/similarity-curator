@@ -103,6 +103,30 @@ const ingest = async () => {
   });
 }
 
-export default {
-  init
+const getNearest = (museum, id) => {
+  // Step 1. fetch record (museum/id)
+  const query = {
+    filter: {
+      must: [
+        { key: 'museum', match: { value: museum } },
+        { key: 'id', match: { value: parseInt(id) } }
+      ]
+    },
+    with_vector: true
+  };
+
+  return fetch('http://localhost:6333/collections/livia/points/scroll', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(query)
+  })
+  .then(res => res.json())
+  .then(data => {
+    return data.result.points;
+  });
 }
+
+export default { init, getNearest }
