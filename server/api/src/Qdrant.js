@@ -103,7 +103,7 @@ const ingest = async () => {
   });
 }
 
-const getNearest = (museum, id) => {
+const getNearest = (museum, id, k = 10) => {
   // Step 1. fetch record (museum/id)
   const query = {
     filter: {
@@ -125,7 +125,31 @@ const getNearest = (museum, id) => {
   })
   .then(res => res.json())
   .then(data => {
-    return data.result.points;
+    const { points } = data.result;
+
+    if (points.length === 0)
+      throw new Error(`Not found: ${museum}, ${id}`);
+
+    // Step 2. get item vector and search k nearest neighbours
+    const { vector } = points[0];
+
+    return fetch('http://localhost:6333/collections/livia/points/search', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        vector,
+        limit: k + 1, // Response always includes item itself, which we'll filter
+        with_payload: true
+      })
+    })
+    .then(res => res.json())
+    .then(data => data.result
+      .map(r => r.payload)
+      // Filter original item
+      .filter(r => r.id !== parseInt(id))); 
   });
 }
 

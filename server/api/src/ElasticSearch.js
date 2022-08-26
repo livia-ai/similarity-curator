@@ -16,6 +16,16 @@ const MAPPING = {
 
 const client = new Client({ node: 'http://localhost:9200' });
 
+/**
+ * Reduces the full ES result to a smaller representation, 
+ * including (mostly) just the '_source' field.
+ */
+const simplifySearchResults = esResult => ({
+  took: esResult.took,
+  total: esResult.hits.total,
+  hits: esResult.hits.hits.map(hit => hit._source)
+})
+
 const init = () => {
   console.log('[ElasticSearch] Checking if index exists');
 
@@ -74,10 +84,22 @@ const search = (query, size) => client.search({
     match: { title: query }
   },
   size
-}).then(result => ({
-  took: result.took,
-  total: result.hits.total,
-  hits: result.hits.hits.map(hit => hit._source)
-}));
+}).then(simplifySearchResults);
 
-export default { init, search }
+const retrieve = identifiers => client.search({
+  index: 'livia',
+  query: {
+    bool: {
+      should: identifiers.map(({ museum, id}) => ({
+        bool: {
+          must: [
+            { term: { museum } },
+            { term: { id }}
+          ]
+        }            
+      }))
+    }
+  }
+}).then(simplifySearchResults);
+
+export default { init, retrieve, search }

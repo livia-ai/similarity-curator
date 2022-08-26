@@ -31,7 +31,8 @@ const API = (opts = {}) => {
         .header('Content-Type', 'application/json')
         .send({ error: 'Missing parameter: `museum` and/or `id`' }) : 
 
-      qdrant.getNearest(museum, id);
+      qdrant.getNearest(museum, id)
+        .then(records => es.retrieve(records));
   });
 
   return server;
