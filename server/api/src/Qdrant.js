@@ -5,7 +5,7 @@ import LineByLineReader from 'line-by-line';
 import zlib from 'zlib';
 import { Qdrant } from 'qdrant';
 
-const DATA_URL = 'https://dl.dropboxusercontent.com/s/uvz12ze382yuqyb/mak-vectors.jsonl.gz';
+const DATA_URL = 'https://dl.dropboxusercontent.com/s/u72c07in2b2pkn2/mak-vectors.jsonl.gz';
 
 const DATA_PATH = '../data/mak-vectors.jsonl.gz';
 
@@ -55,6 +55,16 @@ const download = async () => {
 const ingest = async () => {
   console.log('[Qdrant] Preparing data for ingest');
 
+  const ingestOneBatch = batch => {
+    console.log('[Qdrant] Ingesting batch of ' + batch.length);
+    return client.upload_points('livia', batch).then(result => {
+      if (result.err) {
+        console.error('[Qdrant] ERROR Import error');
+        console.error(result.err);
+      }
+    });
+  }
+
   const stream = 
     fs.createReadStream(DATA_PATH)
       .pipe(zlib.createGunzip());
@@ -64,22 +74,32 @@ const ingest = async () => {
   let batch = [];
 
   lr.on('line', line => {
+    const json = JSON.parse(line);
+
     batch.push({
       id: uuidv4(),
       payload: { 
-        id: line.priref, 
+        id: json.priref, 
         museum: 'MAK'
       }, 
-      vector: line.vector
+      vector: json.vector
     });
 
-    // TODO batch + ingest
-    // lr.pause();
+    if (batch.length === INGEST_BATCH_SIZE) {
+      lr.pause();
 
+      ingestOneBatch(batch).then(() => {
+        batch = [];
+        lr.resume();  
+      });
+    }
   });
 
   lr.on('end', () => {
-    console.log('[Qdrant] Ingest complete');
+    if (batch.length > 0)
+      ingestOneBatch(batch).then(() => {
+        console.log('[Qdrant] Ingest complete');
+      });
   });
 }
 
