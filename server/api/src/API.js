@@ -6,9 +6,6 @@ import qdrant from './Qdrant.js';
 const API = (opts = {}) => {
   const server = Fastify(opts);
 
-  server.get('/', req =>
-    ({ message: 'Hello World' }));
-
   server.get('/search', (req, res) => {
     const query = req.query.q; 
     const size = req.query.size || 10;
