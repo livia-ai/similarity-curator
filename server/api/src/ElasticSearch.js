@@ -68,6 +68,16 @@ const ingest = () => new Promise(resolve => {
   });
 });
 
-export default {
-  init
-}
+const search = (query, size) => client.search({
+  index: 'livia',
+  query: {
+    match: { title: query }
+  },
+  size
+}).then(result => ({
+  took: result.took,
+  total: result.hits.total,
+  hits: result.hits.hits.map(hit => hit._source)
+}));
+
+export default { init, search }
