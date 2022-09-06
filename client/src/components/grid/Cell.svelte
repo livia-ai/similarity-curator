@@ -23,7 +23,7 @@
 <div 
   class="card-container" 
   class:flipped={frontSrc === backSrc}
-  class:flipping={frontSrc !== backSrc}
+  class:flipping={backSrc && frontSrc !== backSrc}
   on:click>
   <div class="card" data-delay={`${delay}ms`}>
     <div class="front">
@@ -70,7 +70,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    border-radius: 5px;
+    border-radius: 3px;
     box-shadow: 0 0 24px rgba(0, 0, 0, 0.25);
   }
 
@@ -93,10 +93,10 @@
 
   .front {
     z-index: 2;
-    transform: rotateY(-180deg);
+    transform: rotateY(0deg);
   }
 
   .back {
-    transform: rotateY(0deg);
+    transform: rotateY(180deg);
   }
 </style>

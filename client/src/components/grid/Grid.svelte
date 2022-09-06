@@ -9,10 +9,10 @@
 
 <div class="app-container">
 	<ul class="grid-container">
-		{#each $records as record, idx (idx)}
+		{#each $records as record, idx (record.id)}
 			<li 
 				animate:flip={{ delay: 50*idx, duration: d => 30 * Math.sqrt(d) }} 
-				on:click={() => records.randomize() }>
+				on:click={() => records.setCenter(record) }>
 				<Cell delay={50*idx} src={record.image_url} />
 			</li>
 		{/each}
@@ -29,8 +29,8 @@
 
 	.grid-container {
 		display: grid;
-		gap: 12px;
-		grid-template-columns: repeat(5, 1fr);
+		gap: 8px;
+		grid-template-columns: repeat(5, 0.2fr);
     position:relative;
 	}
 
