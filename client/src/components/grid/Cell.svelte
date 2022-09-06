@@ -1,6 +1,6 @@
 <!-- A double-sided card that can be used for transitions -->
 <script>
-  export let record;
+  export let src;
   export let delay;
 
   const DURATION = 600;
@@ -9,31 +9,37 @@
   let backSrc;
 
   $: {
-    backSrc = record.image_url;
-
-    if (frontSrc !== record.image_url) {
+    if (!backSrc) {
       setTimeout(() => { 
-        frontSrc = record.image_url;
-        backSrc = null;
+        frontSrc = src;
       }, DURATION + delay);
-    }  
+    } else {
+      backSrc = src;
+
+      if (frontSrc !== src) {
+        setTimeout(() => { 
+          frontSrc = src;
+          backSrc = null;
+        }, DURATION + delay);
+      }  
+    }
   }
 </script>
 
 <div 
   class="card-container" 
   class:flipped={frontSrc === backSrc}
-  class:flipping={backSrc && frontSrc !== backSrc}
+  class:flipping={frontSrc !== backSrc}
   on:click>
   <div class="card" data-delay={`${delay}ms`}>
     <div class="front">
       {#if frontSrc}
-        <img src={frontSrc} width="220" height="220" alt="Flippable front" />
+        <img src={frontSrc} width="120" height="120" alt="Flippable front" />
       {/if}
     </div>
     <div class="back">
       {#if backSrc}
-        <img src={backSrc} width="220" height="220" alt="Flippable back" />
+        <img src={backSrc} width="120" height="120" alt="Flippable back" />
       {/if}
     </div>
   </div>
@@ -49,7 +55,7 @@
   }
 
   .card-container.flipped .card {
-    transition: 0s;
+    transition: 800ms;
     transition-delay: 0ms;
   }
 
@@ -74,6 +80,10 @@
     box-shadow: 0 0 24px rgba(0, 0, 0, 0.25);
   }
 
+  .card:hover img {
+    transform: scale(1.04,1.04);
+  }
+
   .front, .back {
     backface-visibility: hidden;
     position: absolute;
@@ -89,10 +99,10 @@
 
   .front {
     z-index: 2;
-    transform: rotateY(0deg);
+    transform: rotateY(-180deg);
   }
 
   .back {
-    transform: rotateY(180deg);
+    transform: rotateY(0deg);
   }
 </style>

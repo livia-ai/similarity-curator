@@ -14,7 +14,7 @@
 				animate:flip={{ delay: 50*idx, duration: d => 30 * Math.sqrt(d) }} 
 				out:fade
 				on:click={() => console.log('click')}>
-				<Cell delay={100*idx} record={record} />
+				<Cell delay={50*idx} src={record.image_url} />
 			</li>
 		{/each}
 	</ul>
