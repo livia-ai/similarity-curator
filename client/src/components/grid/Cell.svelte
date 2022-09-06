@@ -9,20 +9,14 @@
   let backSrc;
 
   $: {
-    if (!backSrc) {
+    backSrc = src;
+
+    if (frontSrc !== src) {
       setTimeout(() => { 
         frontSrc = src;
+        backSrc = null;
       }, DURATION + delay);
-    } else {
-      backSrc = src;
-
-      if (frontSrc !== src) {
-        setTimeout(() => { 
-          frontSrc = src;
-          backSrc = null;
-        }, DURATION + delay);
-      }  
-    }
+    }  
   }
 </script>
 

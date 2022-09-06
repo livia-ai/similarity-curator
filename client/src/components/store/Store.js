@@ -15,14 +15,22 @@ const createStore = () => {
 
   const { subscribe, set } = writable([]);
 
-  // Initialize with random starting point
-  getRandomRecord()
+  const setCenter = record => {
+
+  }
+
+  const randomize = () => {    
+    getRandomRecord()
     .then(record =>
       getKNearest(record.museum, record.id)
         .then(records =>
           set([ record, ...records ])));
+  }
 
-  return { subscribe };
+  // Initialize with random starting point
+  randomize();
+
+  return { randomize, setCenter, subscribe };
 
 }
 
