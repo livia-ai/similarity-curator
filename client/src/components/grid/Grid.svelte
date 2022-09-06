@@ -11,9 +11,9 @@
 	<ul class="grid-container">
 		{#each $records as record, idx (record.id)}
 			<li 
-				animate:flip={{ delay: 50*idx, duration: d => 30 * Math.sqrt(d) }} 
+				animate:flip={{ delay: 10 * idx, duration: d => 30 * Math.sqrt(d) }} 
 				on:click={() => records.setCenter(record) }>
-				<Cell delay={50*idx} src={record.image_url} />
+				<Cell delay={10 * idx} src={record.image_url} />
 			</li>
 		{/each}
 	</ul>

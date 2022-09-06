@@ -18,6 +18,24 @@ const SCHEMA = {
   distance: 'Cosine'
 };
 
+const shuffle = array => {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
 const init = () => {
   console.log('[Qdrant] Checking if collections exists');
 
@@ -103,7 +121,7 @@ const ingest = async () => {
   });
 }
 
-const getNearest = (museum, id, k = 10) => {
+const getNearest = (museum, id, k = 10, stretch = 1) => {
   // Step 1. fetch record (museum/id)
   const query = {
     filter: {
@@ -141,16 +159,21 @@ const getNearest = (museum, id, k = 10) => {
       },
       body: JSON.stringify({ 
         vector,
-        limit: k + 1, // Response *may* include the item itself, which we'll filter
+        limit: (stretch * k) + 1, // Response *may* include the item itself, which we'll filter
         with_payload: true
       })
     })
     .then(res => res.json())
-    .then(data => data.result
-      .map(r => r.payload)
-      // Filter original item
-      .filter(r => r.id !== parseInt(id))
-      .slice(0, k));
+    .then(data => { 
+      const neighbours = data.result
+        .map(r => r.payload)
+        // Filter original item
+        .filter(r => r.id !== parseInt(id));
+
+      console.log(neighbours);
+
+      return shuffle(neighbours).slice(0, k);
+    });
   });
 }
 

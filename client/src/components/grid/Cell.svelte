@@ -1,35 +1,30 @@
 <!-- A double-sided card that can be used for transitions -->
 <script>
+  import { onMount } from 'svelte';
+
   export let src;
   export let delay;
 
   const DURATION = 600;
 
   let frontSrc;
-  let backSrc;
+  let backSrc = src;
 
   $: {
-    backSrc = src;
-
-    if (frontSrc !== src) {
-      setTimeout(() => { 
-        frontSrc = src;
-        backSrc = null;
-      }, DURATION + delay);
-    }  
+    setTimeout(() => { 
+      frontSrc = src;
+    }, DURATION + delay);
   }
 </script>
 
 <div 
   class="card-container" 
   class:flipped={frontSrc === backSrc}
-  class:flipping={backSrc && frontSrc !== backSrc}
+  class:flipping={frontSrc !== backSrc}
   on:click>
   <div class="card" data-delay={`${delay}ms`}>
     <div class="front">
-      {#if frontSrc}
-        <img src={frontSrc} width="120" height="120" alt="Flippable front" />
-      {/if}
+
     </div>
     <div class="back">
       {#if backSrc}
@@ -44,13 +39,17 @@
     perspective: 1000px;
   }
 
+  .card-container .card {
+    transition: 1s;
+    transform: rotateY(-180deg);
+  }
+
   .card-container.flipping .card {
     transform: rotateY(-180deg);
   }
 
   .card-container.flipped .card {
-    transition: 800ms;
-    transition-delay: 0ms;
+    transform: rotateY(0deg);
   }
 
   .card-container, .front, .back {
@@ -59,7 +58,6 @@
   }
 
   .card {
-    transition: 0.6s;
     transform-style: preserve-3d;
     position: relative;
     cursor: pointer;
@@ -93,10 +91,10 @@
 
   .front {
     z-index: 2;
-    transform: rotateY(0deg);
+    transform: rotateY(-180deg);
   }
 
   .back {
-    transform: rotateY(180deg);
+    transform: rotateY(0deg);
   }
 </style>
