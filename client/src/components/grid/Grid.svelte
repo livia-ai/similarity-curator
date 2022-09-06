@@ -5,25 +5,33 @@
   import { records } from '../store/Store.js';
   
   import Cell from './Cell.svelte';
-
 </script>
 
-<ul class="grid-container">
-	{#each $records as record, idx (record)}
-		<li 
-			animate:flip={{ delay: 50*idx, duration: d => 30 * Math.sqrt(d) }} 
-			out:fade
-			on:click={() => console.log('click')}>
-			<Cell delay={100*idx} record={record} />
-		</li>
-	{/each}
-</ul>
+<div class="app-container">
+	<ul class="grid-container">
+		{#each $records as record, idx (record)}
+			<li 
+				animate:flip={{ delay: 50*idx, duration: d => 30 * Math.sqrt(d) }} 
+				out:fade
+				on:click={() => console.log('click')}>
+				<Cell delay={100*idx} record={record} />
+			</li>
+		{/each}
+	</ul>
+</div>
 
 <style>
+	.app-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+	}
+
 	.grid-container {
 		display: grid;
 		gap: 12px;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(5, 1fr);
     position:relative;
 	}
 
