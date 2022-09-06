@@ -141,7 +141,7 @@ const getNearest = (museum, id, k = 10) => {
       },
       body: JSON.stringify({ 
         vector,
-        limit: k + 1, // Response always includes item itself, which we'll filter
+        limit: k + 1, // Response *may* include the item itself, which we'll filter
         with_payload: true
       })
     })
@@ -149,7 +149,8 @@ const getNearest = (museum, id, k = 10) => {
     .then(data => data.result
       .map(r => r.payload)
       // Filter original item
-      .filter(r => r.id !== parseInt(id))); 
+      .filter(r => r.id !== parseInt(id))
+      .slice(0, k));
   });
 }
 
