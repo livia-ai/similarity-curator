@@ -2,12 +2,11 @@
 	import { flip } from 'svelte/animate';
   import { fade } from 'svelte/transition';
 
-  import { images } from '../store';
+  import { store } from '../store/Store.js';
   
   import Cell from './Cell.svelte';
-</script>
 
-<ul class="grid-container">
+/*
 	{#each $images as img, idx (img)}
     <li 
       animate:flip={{ delay: 50*idx, duration: d => 30 * Math.sqrt(d) }} 
@@ -16,6 +15,11 @@
 		  <Cell delay={100*idx} img={img} />
     </li>
 	{/each}
+
+*/
+</script>
+
+<ul class="grid-container">
 </ul>
 
 <style>

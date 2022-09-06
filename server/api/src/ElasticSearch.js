@@ -99,8 +99,9 @@ const retrieve = identifiers => client.search({
         }            
       }))
     }
-  }
-}).then(simplifySearchResults);
+  },
+  size: identifiers.length
+}).then(results => simplifySearchResults(results).hits);
 
 const getRandom = () => client.search({
   index: 'livia',
