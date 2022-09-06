@@ -5,21 +5,23 @@ https://stackoverflow.com/questions/45665851/how-do-i-make-my-flipping-image-dis
 <script>
   import { fade } from 'svelte/transition';
 
-  export let img;
+  export let record;
   export let delay;
 
   const spin = (node, params) => ({
     duration: 600,
     delay,
     css: t => `transform: rotateY(${(1 - t) * 180}deg)`
-  })
+  });
+
+  console.log('CELL');
 </script>
 
 <div class="grid-cell">
   <div class="card-container">
     <div class="card" in:spin out:fade>
       <div class="front">
-        <img src={img} width="220" height="220" alt="Random sample" />
+        <img src={record.image_url} width="220" height="220" alt="Random sample" />
       </div>
       <div class="back"></div>
     </div>

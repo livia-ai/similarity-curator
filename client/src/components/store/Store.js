@@ -1,19 +1,13 @@
 import { writable } from 'svelte/store';
 
 /** Returns the K nearest neighbours to the given image from the backend **/
-const getKNearest = (museum, id, k = 24) => {
-  console.log('fetching', museum, id, k);
-  return fetch(`http:/localhost:3000/knn?museum=${museum}&id=${id}&k=${k}`)
-    .then(res => res.json())
-    .then(data => {
-      console.log('got response', data);
-      return data.hits
-    });
-}
+const getKNearest = (museum, id, k = 24) =>
+  fetch(`/api/knn?museum=${museum}&id=${id}&k=${k}`)
+    .then(res => res.json());
 
 /** Fetches a random image from the backend **/
 const getRandomRecord = () =>
-  fetch('http:/localhost:3000/random')
+  fetch('/api/random')
     .then(res => res.json())
     .then(data => data.hits[0]);
 
@@ -21,13 +15,15 @@ const createStore = () => {
 
   const { subscribe, set } = writable([]);
 
+  // Initialize with random starting point
   getRandomRecord()
-    .then(record => getKNearest(record.museum, record.id))
-    .then(records => {
-      console.log('records');
-      console.log(records);
-    });
+    .then(record =>
+      getKNearest(record.museum, record.id)
+        .then(records =>
+          set([ record, ...records ])));
+
+  return { subscribe };
 
 }
 
-export const store = createStore();
+export const records = createStore();
