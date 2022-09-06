@@ -19,7 +19,7 @@ const API = (opts = {}) => {
       es.search(query, size);
   });
 
-  server.get('/nn', (req, res) => {
+  server.get('/knn', (req, res) => {
     const { museum, id } = req.query;
 
     return (!museum || !id) ?
@@ -31,6 +31,8 @@ const API = (opts = {}) => {
       qdrant.getNearest(museum, id)
         .then(records => es.retrieve(records));
   });
+
+  server.get('/random', (req, res) => es.getRandom());
 
   return server;
 }

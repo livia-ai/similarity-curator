@@ -102,4 +102,14 @@ const retrieve = identifiers => client.search({
   }
 }).then(simplifySearchResults);
 
-export default { init, retrieve, search }
+const getRandom = () => client.search({
+  index: 'livia',
+  query: {
+    function_score: {
+      random_score: {}
+    }
+  },
+  size: 1
+}).then(simplifySearchResults);
+
+export default { getRandom, init, retrieve, search }
