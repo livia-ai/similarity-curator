@@ -170,8 +170,6 @@ const getNearest = (museum, id, k = 10, stretch = 1) => {
         // Filter original item
         .filter(r => r.id !== parseInt(id));
 
-      console.log(neighbours);
-
       return shuffle(neighbours).slice(0, k);
     });
   });

@@ -11,4 +11,5 @@ export default (req, res) => {
       .send({ error: 'Missing parameter: `q`' })  :
   
     es.search(query, size);
+  
 }

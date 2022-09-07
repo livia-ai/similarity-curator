@@ -15,4 +15,5 @@ export default (req, res) => {
 
     qdrant.getNearest(museum, id, k)
       .then(records => es.retrieve(records));
+
 }
