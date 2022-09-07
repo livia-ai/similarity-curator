@@ -1,7 +1,7 @@
 import Fastify from 'fastify';
 
-import es from './ElasticSearch.js';
-import qdrant from './Qdrant.js';
+import es from './elastic/index.js';
+import qdrant from './qdrant/index.js';
 
 const API = (opts = {}) => {
   const server = Fastify(opts);

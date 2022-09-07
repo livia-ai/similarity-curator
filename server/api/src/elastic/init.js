@@ -1,7 +1,6 @@
 import fs from 'fs';
 import Papa from 'papaparse';
 import zlib from 'zlib';
-import { Client } from '@elastic/elasticsearch';
 
 const MAPPING = {
   properties: {
@@ -14,19 +13,7 @@ const MAPPING = {
   }
 }
 
-const client = new Client({ node: 'http://localhost:9200' });
-
-/**
- * Reduces the full ES result to a smaller representation, 
- * including (mostly) just the '_source' field.
- */
-const simplifySearchResults = esResult => ({
-  took: esResult.took,
-  total: esResult.hits.total,
-  hits: esResult.hits.hits.map(hit => hit._source)
-})
-
-const init = () => {
+const init = client => () => {
   console.log('[ElasticSearch] Checking if index exists');
 
   client.indices.exists({ index: 'livia' }).then(exists => {
@@ -34,7 +21,7 @@ const init = () => {
       client.indices.create({ 
         index: 'livia',
         body: { mappings: MAPPING }
-      }).then(data => {
+      }).then(() => {
         console.log('[ElasticSearch] No index - created new');
         console.log('[ElasticSearch] Loading data');
         ingest().then(data => {
@@ -43,7 +30,7 @@ const init = () => {
           const operations = data.flatMap(doc => ([ { index: { _index: 'livia' } }, doc ]));
           console.log('[ElasticSearch] Ingesting');
 
-          client.bulk({ refresh: true, operations }).then(bulkResponse => {
+          client.bulk({ refresh: true, operations }).then(() => {
             console.log('[ElasticSearch] Ingest complete' );
           })         
         });
@@ -78,39 +65,4 @@ const ingest = () => new Promise(resolve => {
   });
 });
 
-const search = (query, size) => client.search({
-  index: 'livia',
-  query: {
-    match: { title: query }
-  },
-  size
-}).then(simplifySearchResults);
-
-const retrieve = identifiers => client.search({
-  index: 'livia',
-  query: {
-    bool: {
-      should: identifiers.map(({ museum, id}) => ({
-        bool: {
-          must: [
-            { term: { museum } },
-            { term: { id }}
-          ]
-        }            
-      }))
-    }
-  },
-  size: identifiers.length
-}).then(results => simplifySearchResults(results).hits);
-
-const getRandom = () => client.search({
-  index: 'livia',
-  query: {
-    function_score: {
-      random_score: {}
-    }
-  },
-  size: 1
-}).then(simplifySearchResults);
-
-export default { getRandom, init, retrieve, search }
+export default init;
