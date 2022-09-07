@@ -1,8 +1,21 @@
-import API from './API.js';
+import Fastify from 'fastify';
+
 import Config from './Config.js';
 
 import es from './elastic/index.js';
 import qdrant from './qdrant/index.js';
+
+import { knn, random, search } from './api/index.js';
+
+const API = (opts = {}) => {
+  const server = Fastify(opts);
+
+  server.get('/search', search);
+  server.get('/knn', knn);
+  server.get('/random', random);
+
+  return server;
+}
 
 const server = API();
 
