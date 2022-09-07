@@ -1,8 +1,8 @@
 import API from './API.js';
 import Config from './Config.js';
 
-import es from './ElasticSearch.js';
-import qdrant from './Qdrant.js';
+import es from './elastic/index.js';
+import qdrant from './qdrant/index.js';
 
 const server = API();
 
