@@ -13,7 +13,11 @@ const MAPPING = {
   }
 }
 
-const DATA_PATH = '../data/image_embedding_bel.jsonl.gz';
+const DATA = [
+  ['WM', '../data/image_embeddings_wm_128d.jsonl.gz'],
+  ['MAK', '../data/image_embeddings_mak_128d.jsonl.gz'],
+  ['BEL', '../data/image_embeddings_bel_128d.jsonl.gz']
+];
 
 const INGEST_BATCH_SIZE = 5000;
 
@@ -50,48 +54,54 @@ const ingest = client => {
     })  
   }
 
-  const stream = 
-    fs.createReadStream(DATA_PATH)
-      .pipe(zlib.createGunzip());
+  const ingestOneDataset = (museum, path) => new Promise(resolve => {
+    console.log(`Ingesting dataset: ${path}`);
+    
+    const stream = 
+      fs.createReadStream(path)
+        .pipe(zlib.createGunzip());
 
-  return new Promise(resolve => {
-    const lr = new LineByLineReader(stream);
+      const lr = new LineByLineReader(stream);
 
-    let batch = [];
+      let batch = [];
 
-    lr.on('line', line => {
-      const json = JSON.parse(line);
+      lr.on('line', line => {
+        const json = JSON.parse(line);
 
-      batch.push({
-        id: json.id,
-        museum: 'BEL',
-        title: json.title,
-        description: json.description ? json.description : null, 
-        record_url: json.url,
-        image_url: json.reproduction
+        batch.push({
+          id: json.id,
+          museum,
+          title: json.title,
+          description: json.description ? json.description : null, 
+          record_url: json.url,
+          image_url: json.reproduction
+        });
+
+        if (batch.length === INGEST_BATCH_SIZE) {
+          lr.pause();
+
+          ingestOneBatch(batch).then(() => {
+            batch = [];
+            lr.resume();  
+          });
+        }
       });
 
-      if (batch.length === INGEST_BATCH_SIZE) {
-        lr.pause();
-
-        ingestOneBatch(batch).then(() => {
-          batch = [];
-          lr.resume();  
-        });
-      }
-    });
-
-    lr.on('end', () => {
-      if (batch.length > 0) {
-        ingestOneBatch(batch).then(() => {
+      lr.on('end', () => {
+        if (batch.length > 0) {
+          ingestOneBatch(batch).then(() => {
+            resolve();
+          });
+        } else {
           resolve();
-        });
-      } else {
-        resolve();
-      }
-    });
+        }
+      });
   });
 
+  return DATA.reduce((res, d) => {
+    const [museum, path] = d;
+    return res.then(() => ingestOneDataset(museum, path));
+  }, new Promise(resolve => resolve()));
 }
 
 export default init;
