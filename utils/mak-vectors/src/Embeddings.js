@@ -16,13 +16,13 @@ const Embeddings = path => new Promise(resolve => {
     const indexed = {};
 
     data.forEach(row => {
-      const [priref, ...vector] = row;
-      indexed[priref] = vector.map(str => parseFloat(str));
+      const [identifier, ...vector] = row;
+      indexed[identifier] = vector.map(str => parseFloat(str));
     });
 
     console.log('Indexing complete');
 
-    return priref => indexed[priref];
+    return identifier => indexed[identifier];
   }
 
   Papa.parse(stream, {

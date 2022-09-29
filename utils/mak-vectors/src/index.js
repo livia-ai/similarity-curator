@@ -11,8 +11,7 @@
  */
  import fs from 'fs';
  import { XMLParser } from 'fast-xml-parser';
- import Papa from 'papaparse';
-
+ 
  import Embeddings from './Embeddings.js';
  
  const MAK_METADATA = '../../../data/MAK/Metadata/xml';
