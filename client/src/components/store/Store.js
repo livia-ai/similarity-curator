@@ -43,23 +43,28 @@ const gridSort = arr => ([
   arr[20],
   arr[22],
   arr[24]
-])
+]).filter(v => v);
 
 const createStore = () => {
 
   const { subscribe, set } = writable([]);
 
-  const setCenter = record =>
-    getKNearest(record.museum, record.id)
-      .then(records => 
-        set(gridSort([ record, ...records ])));
+  const setCenter = record => {
+    return getKNearest(record.museum, record.id)
+      .then(records => {
+        console.log(record);
+        set(gridSort([ record, ...records ]))
+      });
+  }
 
   const randomize = () =>
     getRandomRecord()
       .then(record =>
         getKNearest(record.museum, record.id)
-          .then(records =>
-            set(gridSort([ record, ...records ]))));
+          .then(records => {
+            console.log(gridSort([ record, ...records ]));
+            set([ ...records ])
+    }));
 
   // Initialize with random starting point
   randomize();

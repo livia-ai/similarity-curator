@@ -5,6 +5,8 @@ export default (req, res) => {
 
   const { museum, id } = req.query;
 
+  console.log(museum, id);
+
   const k = req.query.k ? parseInt(req.query.k) : 10;
 
   return (!museum || !id) ?

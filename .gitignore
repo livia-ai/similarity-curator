@@ -1,5 +1,5 @@
 node_modules
-server/data/mak-vectors.jsonl.gz
+server/data/*.jsonl.gz
 server/db/exhibitions/data/*
 server/db/fulltext/data/*
 server/db/vectorspace/data/*

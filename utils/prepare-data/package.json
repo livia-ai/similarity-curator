@@ -1,0 +1,16 @@
+{
+  "name": "mak-vectors",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Utilities for preparing MAK embedding vectors for the exploratory browser",
+  "main": "src/index.js",
+  "scripts": {
+    "mak": "node --max-old-space-size=8192 src/metadata_mak.js",
+    "csv": "node src/metadata_csv.js"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.0.9",
+    "papaparse": "^5.3.2"
+  }
+}

@@ -7,14 +7,14 @@ import { Qdrant } from 'qdrant';
 
 const DATA_URL = 'https://dl.dropboxusercontent.com/s/u72c07in2b2pkn2/mak-vectors.jsonl.gz';
 
-const DATA_PATH = '../data/mak-vectors.jsonl.gz';
+const DATA_PATH = '../data/image_embedding_bel.jsonl.gz';
 
 const INGEST_BATCH_SIZE = 1000;
 
 const client = new Qdrant('http://localhost:6333/');
 
 const SCHEMA = {
-  vector_size: 256,
+  vector_size: 128,
   distance: 'Cosine'
 };
 
@@ -75,7 +75,10 @@ const ingest = async () => {
 
   const ingestOneBatch = batch => {
     console.log('[Qdrant] Ingesting batch of ' + batch.length);
+
     return client.upload_points('livia', batch).then(result => {
+      console.log(result);
+
       if (result.err) {
         console.error('[Qdrant] ERROR Import error');
         console.error(result.err);
@@ -91,16 +94,16 @@ const ingest = async () => {
 
   let batch = [];
 
-  lr.on('line', line => {
+  lr.on('line', line => {    
     const json = JSON.parse(line);
 
     batch.push({
       id: uuidv4(),
       payload: { 
-        id: json.priref, 
-        museum: 'MAK'
+        id: json.id,
+        museum: 'BEL'
       }, 
-      vector: json.vector
+      vector: json.vec
     });
 
     if (batch.length === INGEST_BATCH_SIZE) {
@@ -127,11 +130,13 @@ const getNearest = (museum, id, k = 10, stretch = 1) => {
     filter: {
       must: [
         { key: 'museum', match: { value: museum } },
-        { key: 'id', match: { value: parseInt(id) } }
+        { key: 'id', match: { value: id } }
       ]
     },
     with_vector: true
   };
+
+  console.log(JSON.stringify(query));
 
   return fetch('http://localhost:6333/collections/livia/points/scroll', {
     method: 'POST',

@@ -8,7 +8,7 @@ const retrieve = client => identifiers => client.search({
         bool: {
           must: [
             { term: { museum } },
-            { term: { id }}
+            { term: { id: `${id}` }}
           ]
         }            
       }))

@@ -1,6 +1,6 @@
 import fs from 'fs';
-import Papa from 'papaparse';
 import zlib from 'zlib';
+import LineByLineReader from 'line-by-line';
 
 const MAPPING = {
   properties: {
@@ -13,56 +13,87 @@ const MAPPING = {
   }
 }
 
+const DATA_PATH = '../data/image_embedding_bel.jsonl.gz';
+
+const INGEST_BATCH_SIZE = 5000;
+
 const init = client => () => {
   console.log('[ElasticSearch] Checking if index exists');
 
   client.indices.exists({ index: 'livia' }).then(exists => {
-    if (!exists) {
+    if (exists) {
+      console.log('[ElasticSearch] index exists - skipping');
+    } else {
       client.indices.create({ 
         index: 'livia',
         body: { mappings: MAPPING }
       }).then(() => {
         console.log('[ElasticSearch] No index - created new');
         console.log('[ElasticSearch] Loading data');
-        ingest().then(data => {
-          console.log('[ElasticSearch] Preparing data for ingest');
-          
-          const operations = data.flatMap(doc => ([ { index: { _index: 'livia' } }, doc ]));
-          console.log('[ElasticSearch] Ingesting');
 
-          client.bulk({ refresh: true, operations }).then(() => {
-            console.log('[ElasticSearch] Ingest complete' );
-          })         
+        ingest(client).then(data => {
+          console.log('[ElasticSearch] Ingest complete');       
         });
       });
-    } else {
-      console.log('[ElasticSearch] Exists');
     }
   });
 }
 
-const ingest = () => new Promise(resolve => {
+const ingest = client => {
+
+  const ingestOneBatch = data => {      
+    const operations = data.flatMap(doc => ([ { index: { _index: 'livia' } }, doc ]));
+    console.log(`[ElasticSearch] Ingesting batch (${data.length} records)`);
+
+    return client.bulk({ refresh: true, operations }).then(() => {
+      console.log('[ElasticSearch] Done' );
+    })  
+  }
+
   const stream = 
-    fs.createReadStream('../data/mak-metadata.csv.gz')
+    fs.createReadStream(DATA_PATH)
       .pipe(zlib.createGunzip());
 
-  const config = {
-    header: true
-  };
+  return new Promise(resolve => {
+    const lr = new LineByLineReader(stream);
 
-  Papa.parse(stream, {
-    ...config,
-    complete: results => {
-      resolve(results.data.map(record => ({
-        id: record.priref,
-        museum: 'MAK',
-        title: record.title,
-        description: record.description ? record.description : null, 
-        record_url: record.url,
-        image_url: record.reproduction
-      })));
-    }
+    let batch = [];
+
+    lr.on('line', line => {
+      const json = JSON.parse(line);
+
+      batch.push({
+        id: json.id,
+        museum: 'BEL',
+        title: json.title,
+        description: json.description ? json.description : null, 
+        record_url: json.url,
+        image_url: json.reproduction
+      });
+
+      if (batch.length === INGEST_BATCH_SIZE) {
+        lr.pause();
+
+        ingestOneBatch(batch).then(() => {
+          batch = [];
+          lr.resume();  
+        });
+      }
+    });
+
+    lr.on('end', () => {
+      if (batch.length > 0) {
+        ingestOneBatch(batch).then(() => {
+          resolve();
+        });
+      } else {
+        resolve();
+      }
+    });
   });
-});
+
+}
 
 export default init;
+
+
