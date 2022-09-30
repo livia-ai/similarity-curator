@@ -3,10 +3,12 @@
   import { onMount } from 'svelte';
 
   export let src;
+  export let museum;
   export let delay;
 
   const DURATION = 600;
 
+  let color;
   let frontSrc;
   let backSrc = src;
 
@@ -14,6 +16,15 @@
     setTimeout(() => { 
       frontSrc = src;
     }, DURATION + delay);
+  }
+
+  $: {
+    if (museum == 'WM')
+      color = 'red';
+    else if (museum === 'BEL')
+      color = 'green';
+    else if (museum === 'MAK')
+      color = 'blue';
   }
 </script>
 
@@ -28,6 +39,8 @@
     </div>
     <div class="back">
       {#if backSrc}
+        <div class="shading" 
+          style={`background-color: ${color}`} />
         <img src={backSrc} width="120" height="120" alt="Flippable back" />
       {/if}
     </div>
@@ -83,7 +96,7 @@
     left: 0;
   }
 
-  .front img, .back img {
+  .back img {
     width: 120px;
     height: 120px;
     object-fit: cover;
@@ -96,5 +109,15 @@
 
   .back {
     transform: rotateY(0deg);
+  }
+
+  .shading {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    opacity: 0.2;
+    position: relative;
+    z-index: 1;
+    display: none;
   }
 </style>

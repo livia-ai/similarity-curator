@@ -30,8 +30,6 @@ const getNeighbours = (museum, id, k = 10, stretch = 1) => {
     with_vector: true
   };
 
-  console.log(JSON.stringify(query));
-
   return fetch('http://localhost:6333/collections/livia/points/scroll', {
     method: 'POST',
     headers: {
@@ -67,7 +65,7 @@ const getNeighbours = (museum, id, k = 10, stretch = 1) => {
       const neighbours = data.result
         .map(r => r.payload)
         // Filter original item
-        .filter(r => r.id !== parseInt(id));
+        .filter(r => r.id !== id);
 
       return shuffle(neighbours).slice(0, k);
     });

@@ -16,7 +16,7 @@ const SCHEMA = {
 
 const DATA = [
   ['WM', '../data/image_embeddings_wm_128d.jsonl.gz'],
-  ['MAK', '../data/image_embeddings_mak_128d.jsonl.gz'],
+  // ['MAK', '../data/image_embeddings_mak_128d.jsonl.gz'],
   ['BEL', '../data/image_embeddings_bel_128d.jsonl.gz']
 ];
 

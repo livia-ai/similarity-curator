@@ -13,7 +13,7 @@
 			<li 
 				animate:flip={{ delay: 10 * idx, duration: d => 30 * Math.sqrt(d) }} 
 				on:click={() => records.setCenter(record) }>
-				<Cell delay={10 * idx} src={record.image_url} />
+				<Cell delay={10 * idx} src={record.image_url} museum={record.museum} />
 			</li>
 		{/each}
 	</ul>

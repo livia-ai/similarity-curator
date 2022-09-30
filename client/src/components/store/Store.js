@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 /** Returns the K nearest neighbours to the given image from the backend **/
-const getKNearest = (museum, id, k = 25) =>
+const getKNearest = (museum, id, k = 24) =>
   fetch(`/api/knn?museum=${museum}&id=${id}&k=${k}`)
     .then(res => res.json());
 
@@ -10,6 +10,11 @@ const getRandomRecord = () =>
   fetch('/api/random')
     .then(res => res.json())
     .then(data => data.hits[0]);
+
+const searchRecords = query =>
+  fetch(`/api/search?q=${query}`)
+    .then(res => res.json())
+    .then(data => data.hits);
 
 /** 
  * Sorts the array for display in the grid, 
@@ -52,7 +57,6 @@ const createStore = () => {
   const setCenter = record => {
     return getKNearest(record.museum, record.id)
       .then(records => {
-        console.log(record);
         set(gridSort([ record, ...records ]))
       });
   }
@@ -62,14 +66,20 @@ const createStore = () => {
       .then(record =>
         getKNearest(record.museum, record.id)
           .then(records => {
-            console.log(gridSort([ record, ...records ]));
-            set([ ...records ])
+            set(gridSort([ record, ...records ]))
     }));
 
-  // Initialize with random starting point
-  randomize();
+  const search = query =>
+    searchRecords(query).then(hits =>
+      set(gridSort(hits)));
 
-  return { randomize, setCenter, subscribe };
+  if (window.location.hash) {
+    search(window.location.hash.substring(1));
+  } else {
+    randomize();
+  }
+
+  return { randomize, search, setCenter, subscribe };
 
 }
 
