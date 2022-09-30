@@ -69,7 +69,7 @@ const ingest = client => {
         const json = JSON.parse(line);
 
         batch.push({
-          id: json.id,
+          id: String(json.id),
           museum,
           title: json.title,
           description: json.description ? json.description : null, 

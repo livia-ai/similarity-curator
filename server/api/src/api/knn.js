@@ -15,7 +15,11 @@ export default (req, res) => {
       .header('Content-Type', 'application/json')
       .send({ error: 'Missing parameter: `museum` and/or `id`' }) : 
 
-    qdrant.getNearest(museum, id, k)
-      .then(records => es.retrieve(records));
+    qdrant.getNeighbours(museum, id, k)
+      .then(records => {
+        console.log('Got nearest neighbour points for ' + museum + ' ' + id);
+        console.log(records);
+        return es.retrieve(records)
+      });
 
 }

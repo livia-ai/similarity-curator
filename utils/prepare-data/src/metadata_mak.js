@@ -77,7 +77,10 @@ import Embeddings from './embeddings.js';
    // Only include records with "rights"="bewilligt"
    if (firstReproduction && rights === 'bewilligt') {
      compactRecord.vec = embeddings.get(priref);
-     meta.push(compactRecord);
+     if (compactRecord.vec)
+       meta.push(compactRecord);
+     else 
+       console.log('No vector for record ', priref);
    }
  
    if (idx === files.length - 1) {

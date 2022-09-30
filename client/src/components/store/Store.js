@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 /** Returns the K nearest neighbours to the given image from the backend **/
-const getKNearest = (museum, id, k = 24) =>
+const getKNearest = (museum, id, k = 25) =>
   fetch(`/api/knn?museum=${museum}&id=${id}&k=${k}`)
     .then(res => res.json());
 
