@@ -1,0 +1,14 @@
+{
+  "name": "mak-association-table",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.0.9",
+    "papaparse": "^5.3.2"
+  }
+}
