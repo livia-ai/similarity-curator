@@ -2,10 +2,11 @@ import fs from 'fs';
 import Papa from 'papaparse';
 import Embeddings from './embeddings.js';
 
-// Belvedere config
+/** Belvedere config
 const METADATA = '../../../data/Belvedere/belvedere_flattened_20220601.csv';
 // const EMBEDDINGS = '../../../data/Belvedere/bel_image_embedding.csv';
-const EMBEDDINGS = '../../../data/Belvedere/img2vec_Belvedere_128d.csv';
+// const EMBEDDINGS = '../../../data/Belvedere/img2vec_Belvedere_128d.csv';
+const EMBEDDINGS = '../../../data/Belvedere/combined_embeddings_bel_256d.csv';
 
 const FIELDS = {
   id: 'Identifier',
@@ -14,11 +15,13 @@ const FIELDS = {
   description: 'Description',
   reproduction: 'Object',
 }
+*/
 
-/* Wien Museum config
+// Wien Museum config
 const METADATA = '../../../data/Wien_Museum/wien_museum_flattened_20220311.csv';
 // const EMBEDDINGS = '../../../data/Wien_Museum/wm_image_embedding.csv';
-const EMBEDDINGS = '../../../data/Wien_Museum/img2vec_Wien_Museum_128d.csv';
+// const EMBEDDINGS = '../../../data/Wien_Museum/img2vec_Wien_Museum_128d.csv';
+const EMBEDDINGS = '../../../data/Wien_Museum/combined_embeddings_wm_256d.csv';
 
 const FIELDS = {
   id: 'id',
@@ -26,7 +29,6 @@ const FIELDS = {
   title: 'title',
   reproduction: 'multimedia_preview',
 }
-*/
 
 const embeddings = await Embeddings(EMBEDDINGS);
 
