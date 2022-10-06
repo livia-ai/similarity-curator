@@ -10,7 +10,7 @@ const BASE = 'http://localhost:6333';
 const SCHEMA = {
   name: 'livia',
   vectors: {
-    size: 128,
+    size: Config.DIMENSION,
     distance: 'Cosine'
   }
 };
@@ -86,6 +86,8 @@ const ingest = async () => {
       if (result.err) {
         console.error('[Qdrant] ERROR Import error');
         console.error(result.err);
+      } else {
+        console.log('[Qdrant] Done')
       }
     });
   }

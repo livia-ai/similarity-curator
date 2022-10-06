@@ -50,7 +50,7 @@ const ingest = client => {
   }
 
   const ingestOneDataset = (museum, path) => new Promise(resolve => {
-    console.log(`Ingesting dataset: ${path}`);
+    console.log(`[ElasticSearch] Ingesting dataset: ${path}`);
     
     const stream = 
       fs.createReadStream(path)
