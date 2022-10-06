@@ -15,7 +15,7 @@ import Embeddings from './embeddings.js';
 const MAK_METADATA = '../../../data/MAK/Metadata/xml';
 // const MAK_EMBEDDINGS = '../../../data/MAK/mak_image_embedding_priref.csv';
 // const MAK_EMBEDDINGS = '../../../data/MAK/img2vec_MAK_128d.csv';
-const MAK_EMBEDDINGS = '../../../data/MAK/combined_embeddings_mak_256d.csv';
+const MAK_EMBEDDINGS = '../../../data/MAK/combined_embeddings_mak_192d.csv';
 
 const parser = new XMLParser({ ignoreAttributes: false });
 
