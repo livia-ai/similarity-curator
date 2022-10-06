@@ -122,6 +122,6 @@
   }
 
   .card:hover .shading {
-    display: block;
+    display: none;
   }
 </style>

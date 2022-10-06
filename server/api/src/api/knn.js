@@ -17,8 +17,6 @@ export default (req, res) => {
 
     qdrant.getNeighbours(museum, id, k)
       .then(records => {
-        console.log('Got nearest neighbour points for ' + museum + ' ' + id);
-        console.log(records);
         return es.retrieve(records)
       });
 
