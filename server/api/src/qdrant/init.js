@@ -50,7 +50,9 @@ const init = async () => {
       body: JSON.stringify({ field_name: 'museum', field_schema: 'keyword' })
     });
 
-    return ingest();
+    return ingest().then(() => {
+      console.log('[Qdrant] Ingest complete');       
+    });
   }
 }
 
