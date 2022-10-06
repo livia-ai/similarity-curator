@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 import { v4 as uuidv4 } from 'uuid';
 import LineByLineReader from 'line-by-line';
 import zlib from 'zlib';
+import Config from '../Config.js';
 
 const BASE = 'http://localhost:6333';
 
@@ -13,12 +14,6 @@ const SCHEMA = {
     distance: 'Cosine'
   }
 };
-
-const DATA = [
-  ['WM', '../data/image_embeddings_wm_128d.jsonl.gz'],
-  // ['MAK', '../data/image_embeddings_mak_128d.jsonl.gz'],
-  ['BEL', '../data/image_embeddings_bel_128d.jsonl.gz']
-];
 
 const INGEST_BATCH_SIZE = 5000;
 
@@ -88,7 +83,6 @@ const ingest = async () => {
       headers,
       body: JSON.stringify({ points: batch })
     }).then(res => res.json()).then(result => {
-      console.log(result);
       if (result.err) {
         console.error('[Qdrant] ERROR Import error');
         console.error(result.err);
@@ -143,7 +137,7 @@ const ingest = async () => {
     });
   });
 
-  return DATA.reduce((res, d) => {
+  return Config.DATA.reduce((res, d) => {
     const [museum, path] = d;
     return res.then(() => ingestOneDataset(museum, path));
   }, new Promise(resolve => resolve()));

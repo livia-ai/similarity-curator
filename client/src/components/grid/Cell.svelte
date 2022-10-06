@@ -118,6 +118,6 @@
     opacity: 0.2;
     position: relative;
     z-index: 1;
-    display: none;
+    
   }
 </style>

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import zlib from 'zlib';
 import LineByLineReader from 'line-by-line';
+import Config from '../Config.js';
 
 const MAPPING = {
   properties: {
@@ -12,12 +13,6 @@ const MAPPING = {
     image_url: { type: 'keyword', index: false }
   }
 }
-
-const DATA = [
-  ['WM', '../data/image_embeddings_wm_128d.jsonl.gz'],
-  // ['MAK', '../data/image_embeddings_mak_128d.jsonl.gz'],
-  ['BEL', '../data/image_embeddings_bel_128d.jsonl.gz']
-];
 
 const INGEST_BATCH_SIZE = 5000;
 
@@ -98,7 +93,7 @@ const ingest = client => {
       });
   });
 
-  return DATA.reduce((res, d) => {
+  return Config.DATA.reduce((res, d) => {
     const [museum, path] = d;
     return res.then(() => ingestOneDataset(museum, path));
   }, new Promise(resolve => resolve()));
