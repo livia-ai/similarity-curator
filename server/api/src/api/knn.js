@@ -5,9 +5,8 @@ export default (req, res) => {
 
   const { museum, id } = req.query;
 
-  console.log(museum, id);
-
   const k = req.query.k ? parseInt(req.query.k) : 10;
+  const z = req.query.z ? parseInt(req.query.z) : 1;
 
   return (!museum || !id) ?
     res
@@ -15,7 +14,7 @@ export default (req, res) => {
       .header('Content-Type', 'application/json')
       .send({ error: 'Missing parameter: `museum` and/or `id`' }) : 
 
-    qdrant.getNeighbours(museum, id, k)
+    qdrant.getNeighbours(museum, id, k, z)
       .then(records => {
         return es.retrieve(records)
       });
