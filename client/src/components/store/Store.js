@@ -1,8 +1,8 @@
 import { writable } from 'svelte/store';
 
 /** Returns the K nearest neighbours to the given image from the backend **/
-const getKNearest = (museum, id, k = 24) =>
-  fetch(`/api/knn?museum=${museum}&id=${id}&k=${k}`)
+const getKNearest = (museum, id, k = 24, zoom = 1) =>
+  fetch(`/api/knn?museum=${museum}&id=${id}&k=${k}&z=${zoom}`)
     .then(res => res.json());
 
 /** Fetches a random image from the backend **/
@@ -54,8 +54,8 @@ const createStore = () => {
 
   const { subscribe, set } = writable([]);
 
-  const setCenter = record => {
-    return getKNearest(record.museum, record.id)
+  const setCenter = (record, zoom = 1) => {
+    return getKNearest(record.museum, record.id, 24, zoom)
       .then(records => {
         set(gridSort([ record, ...records ]))
       });

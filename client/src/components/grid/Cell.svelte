@@ -1,7 +1,5 @@
 <!-- A double-sided card that can be used for transitions -->
 <script>
-  import { onMount } from 'svelte';
-
   export let src;
   export let museum;
   export let delay;

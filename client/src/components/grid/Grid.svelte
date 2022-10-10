@@ -3,11 +3,21 @@
   import { fade } from 'svelte/transition';
   import { records } from '../store/Store.js';
   import Cell from './Cell.svelte';
+	import NeighbourhoodControl from '../controls/neighbourhood/NeighbourhoodControl.svelte';
+
+	const onChangeZoom = ({ detail }) => {
+		// Value range is 0 to 1. Zoom is 1 to 1000
+		const zoom = detail * 999 + 1;
+		const anchor = $records[13];
+		records.setCenter(anchor, zoom);
+	}
 </script>
 
 <div class="app-container">
 	<section class="top">
-		TOP SECTION
+		<div class="inner">
+			<NeighbourhoodControl on:change={onChangeZoom} />
+		</div>
 	</section>
 
 	<section class="center">
@@ -15,6 +25,7 @@
 			{#each $records as record, idx (record.id)}
 				<li 
 					animate:flip={{ delay: 10 * idx, duration: d => 30 * Math.sqrt(d) }} 
+					out:fade
 					on:click={() => records.setCenter(record) }>
 					<Cell delay={10 * idx} src={record.image_url} museum={record.museum} />
 				</li>
@@ -23,7 +34,9 @@
 	</section>
 
 	<section class="bottom">
-		BOTTOM SECTION
+		<div class="inner">
+			BOTTOM SECTION
+		</div>
 	</section>
 </div>
 
@@ -40,6 +53,13 @@
 	section.center {
 		height: calc(100vh - 140px);
 		position: relative; 	
+	}
+
+	section .inner {
+		width: calc(100vh - 140px);
+		height: 100%;
+		margin: 0 auto;
+		position: relative;
 	}
 
 	.grid-container {
