@@ -66,15 +66,17 @@
   }
 
   .card-container, .front, .back {
-    width: 120px;
-    height: 120px;
+    width: 100%;
+    height: 100%;
   }
 
   .card {
     transform-style: preserve-3d;
-    position: relative;
+
     cursor: pointer;
-    box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+
+    width: 100%;
+    height: 100%;
   }
 
   .card img {
@@ -82,7 +84,7 @@
     top: 0;
     left: 0;
     border-radius: 3px;
-    box-shadow: 0 0 24px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.4);
   }
 
   .card:hover img {
@@ -97,14 +99,15 @@
   }
 
   .back img {
-    width: 120px;
-    height: 120px;
     object-fit: cover;
+    width: 100%;
+    height: 100%;
   }
 
   .front {
     z-index: 2;
     transform: rotateY(-180deg);
+    display: none;
   }
 
   .back {
@@ -112,8 +115,6 @@
   }
 
   .shading {
-    width: 100%;
-    height: 100%;
     border-radius: 3px;
     opacity: 0.2;
     position: relative;
