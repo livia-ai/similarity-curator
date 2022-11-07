@@ -29,8 +29,6 @@
     de: 'Tutorial überspringen',
     en: 'Skip tutorial'
   }
-
-  const onClick = () => dispatch('next');
 </script>
 
 <div class="tutorial step step-1">
@@ -38,6 +36,6 @@
   <p>
     {text[lang]}
   </p>
-  <button on:click={onClick}>{next[lang]}</button>
-  <button>{skip[lang]}</button>
+  <button on:click={() => dispatch('next')}>{next[lang]}</button>
+  <button class="skip">{skip[lang]}</button>
 </div>

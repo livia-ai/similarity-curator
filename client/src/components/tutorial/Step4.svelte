@@ -5,15 +5,25 @@
 
   const dispatch = createEventDispatcher();
 
-  const text = {
-    de: `Nimm mindestens 5 und höchstens 12 Kunstwerke in deine Ausstellung auf. Du kannst Deiner fertigen
-         Ausstellung einen Namen geben. LiviaAI wird Dich wieder dabei unterstützen wenn Du möchtest. Am 
-         Ende erhältst Du einen Link, den Du an Deine Freunde senden kannst, um Deine Ausstellung mit ihnen
-         zu teilen. Viel Spaß mit LiviaAI!`,
+  const header = {
+    de: 'Kuratiere Deine Austellung',
+    en: 'Curate your exhibition'
+  };
 
-    en: `Choose at least 5 and at most 12 artworks for your exhibition. You can give your exhibition a title.
-         LiviaAI will support you again, if you want. As the last step, you will get a link you can send to
-         your friends to share your exhibition with them. Have fun with LiviaAI!`
+  const text = {
+    de: [
+          `Nimm mindestens 5 und höchstens 12 Kunstwerke in deine Ausstellung auf. Du kannst Deiner fertigen
+           Ausstellung einen Namen geben. LiviaAI wird Dich wieder dabei unterstützen wenn Du möchtest.`,
+          `Am Ende erhältst Du einen Link, den Du an Deine Freunde senden kannst, um Deine Ausstellung mit ihnen
+           zu teilen. Viel Spaß mit LiviaAI!`
+        ],
+
+    en: [
+          `Choose at least 5 and at most 12 artworks for your exhibition. You can give your exhibition a title.
+           LiviaAI will support you again, if you want.`,
+          `As the last step, you will get a link you can send to your friends to share your exhibition with them. 
+           Have fun with LiviaAI!`
+        ]
   }
 
   const next = {
@@ -23,8 +33,9 @@
 </script>
 
 <div class="tutorial step step-4">
-  <p>
-    {text[lang]}
-  </p>
-  <button on:click={dispatch('next')}>{next[lang]}</button>
+  <h1>{header[lang]}</h1>
+  {#each text[lang] as paragraph}
+    <p>{paragraph}</p>
+  {/each}
+  <button on:click={() => dispatch('next')}>{next[lang]}</button>
 </div>

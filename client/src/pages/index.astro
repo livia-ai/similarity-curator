@@ -1,9 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import Tutorial from '../components/tutorial/Tutorial.svelte';
+import './index.css';
 ---
 <Base>
-	<main class="pt-8">
+	<main>
     <Tutorial client:load lang="de" />
   </main>
 </Base>
