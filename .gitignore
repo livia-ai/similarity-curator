@@ -1,4 +1,5 @@
 node_modules
+dist
 server/data/*.jsonl.gz
 server/db/exhibitions/data/*
 server/db/fulltext/data/*
