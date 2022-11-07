@@ -7,8 +7,8 @@
 	let zoom;
 
 	const onChangeZoom = ({ detail }) => {
-		// Value range is 0 to 1. Zoom is 1 to 1000
-		zoom = detail * 4999 + 1;
+		// Value range is 0 to 1. Zoom is 1 to 500
+		zoom = detail * 499 + 1;
 		const anchor = $records[12];
 		records.setCenter(anchor, zoom);
 	}
