@@ -14,7 +14,7 @@
     step = Math.min(3, step + 1);
 
   const done = () => 
-    window.location = '/app';
+    window.location = '/search';
 </script>
 
 <div class="tutorial-wrapper">
