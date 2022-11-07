@@ -5,7 +5,7 @@ import LineByLineReader from 'line-by-line';
 import zlib from 'zlib';
 import Config from '../Config.js';
 
-const BASE = 'http://localhost:6333';
+const BASE = `http://${Config.HOSTS.QDRANT}:6333`;
 
 const SCHEMA = {
   name: 'livia',

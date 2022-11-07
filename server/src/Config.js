@@ -7,6 +7,12 @@ export default {
     ['BEL', '../data/combined_img2vec_sbert_bel_192d.jsonl.gz']
   ],
 
-  DIMENSION: 192
+  DIMENSION: 192,
+
+  HOSTS: {
+    ELASTIC: 'elastic',  // 'localhost',
+    QDRANT: 'qdrant',    // 'localhost',
+    RETHINK: 'rethinkdb' // 'localhost'
+  }
 
  };

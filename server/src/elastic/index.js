@@ -1,11 +1,12 @@
 import { Client } from '@elastic/elasticsearch';
+import Config from '../Config.js';
 
 import init from './init.js';
 import random from './random.js';
 import retrieve from './retrieve.js';
 import search from './search.js';
 
-const client = new Client({ node: 'http://localhost:9200' });
+const client = new Client({ node: `http://${Config.HOSTS.ELASTIC}:9200` });
 
 /**
  * Reduces the full ES result to a smaller representation, 

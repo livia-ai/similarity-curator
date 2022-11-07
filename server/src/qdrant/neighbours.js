@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import Config from '../Config.js';
 
 const shuffle = array => {
   let currentIndex = array.length,  randomIndex;
@@ -30,7 +31,7 @@ const getNeighbours = (museum, id, k = 10, stretch = 1) => {
     with_vector: true
   };
 
-  return fetch('http://localhost:6333/collections/livia/points/scroll', {
+  return fetch(`http://${Config.HOSTS.QDRANT}:6333/collections/livia/points/scroll`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -48,7 +49,7 @@ const getNeighbours = (museum, id, k = 10, stretch = 1) => {
     // Step 2. get item vector and search k nearest neighbours
     const { vector } = points[0];
 
-    return fetch('http://localhost:6333/collections/livia/points/search', {
+    return fetch(`http://${Config.HOSTS.QDRANT}:6333/collections/livia/points/search`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
