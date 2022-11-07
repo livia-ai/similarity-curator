@@ -39,5 +39,5 @@
     <p>{paragraph}</p>
   {/each}
   <button on:click={() => dispatch('next')}>{next[lang]}</button>
-  <button class="skip">{skip[lang]}</button>
+  <button class="skip" on:click={() => dispatch('done')}>{skip[lang]}</button>
 </div>

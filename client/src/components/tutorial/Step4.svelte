@@ -37,5 +37,5 @@
   {#each text[lang] as paragraph}
     <p>{paragraph}</p>
   {/each}
-  <button on:click={() => dispatch('next')}>{next[lang]}</button>
+  <button on:click={() => dispatch('done')}>{next[lang]}</button>
 </div>

@@ -12,13 +12,17 @@
 
   const next = () =>
     step = Math.min(3, step + 1);
+
+  const done = () => 
+    window.location = '/app';
 </script>
 
 <div class="tutorial-wrapper">
   <svelte:component
     this={steps[step]}
     lang={lang}
-    on:next={next} /> 
+    on:next={next} 
+    on:done={done} /> 
 </div>
 
 <style>
