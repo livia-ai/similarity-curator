@@ -1,4 +1,5 @@
 import Fastify from 'fastify';
+import fetch from 'node-fetch';
 
 import Config from './Config.js';
 
@@ -17,7 +18,9 @@ const API = (opts = {}) => {
   // Helper proxy method to get around CORS and deep linking blocks
   server.get('/proxy', (req, res) => {
     const { url } = req.query;
-    request.get(url).pipe(res);
+    fetch(url)
+      .then(response => response.body)
+      .then(img => res.code(200).send(img));
   });
 
   return server;
