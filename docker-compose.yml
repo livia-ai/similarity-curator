@@ -49,10 +49,8 @@ services:
 
   server: 
     depends_on:
-      - rethinkdb
-      - elastic
-        - condition: service_healthy
-      - qdrant
+      elastic:
+        condition: service_healthy
     build: 
       context: server
       dockerfile: Dockerfile
