@@ -15,7 +15,7 @@ const API = (opts = {}) => {
   server.get('/random', random);
 
   // Helper proxy method to get around CORS and deep linking blocks
-  server.get('/api/proxy', (req, res) => {
+  server.get('/proxy', (req, res) => {
     const { url } = req.query;
     request.get(url).pipe(res);
   });

@@ -10,6 +10,9 @@
   let frontSrc;
   let backSrc = src;
 
+  // Runs file downloads through the server-side proxy
+  const getDownloadUrl = url => url.includes('sammlung.wienmuseum.at') ? `/api/proxy?url=${url}` : url;
+
   $: {
     setTimeout(() => { 
       frontSrc = src;
@@ -39,7 +42,7 @@
       {#if backSrc}
         <div class="shading" 
           style={`background-color: ${color}`} />
-        <img src={backSrc} width="120" height="120" alt="Flippable back" />
+        <img src={getDownloadUrl(backSrc)} width="120" height="120" alt="Flippable back" />
       {/if}
     </div>
   </div>
