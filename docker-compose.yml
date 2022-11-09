@@ -25,10 +25,11 @@ services:
         soft: -1
         hard: -1
     healthcheck:
-        test: ["CMD", "curl", "http://localhost:9200"]
+        test: ["CMD", "curl", "-f" "http://localhost:9200"]
         interval: 10s
         timeout: 2s
         retries: 10
+        start_period: 30s
     volumes:
       - ./server/db/fulltext/data:/usr/share/elasticsearch/data
     ports:
