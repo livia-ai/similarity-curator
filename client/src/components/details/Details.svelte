@@ -10,10 +10,21 @@
 
   export let record;
 
+  let wrapperEl; 
+
   const dispatch = createEventDispatcher();
+
+  const onClick = evt => {
+    if (evt.target === wrapperEl)
+      dispatch('close');
+  }
 </script>
 
-<div class="details-wrapper" transition:fade={{ duration: 200 }}>
+<div class="details-wrapper" 
+  transition:fade={{ duration: 200 }}
+  bind:this={wrapperEl}
+  on:click={onClick}>
+
   <button 
     class="details-close"
     on:click={() => dispatch('close')}>
@@ -29,14 +40,16 @@
     <footer>
       <section>
         <button 
-          data-tooltip="Add item to my collection">
+          data-tooltip="Add to my collection"
+          on:click={() => dispatch('add', record)}>
           <Icon src={BsBasket3} />
         </button>
       </section>
 
       <section>
         <button 
-          data-tooltip="Visit item at the Wien Museum">
+          data-tooltip="Visit at the Wien Museum"
+          on:click={() => window.open(record.record_url, '_blank')}>
           <WienMuseum />
         </button>
       </section>
@@ -44,7 +57,8 @@
       <section>
         <button 
           class="move-to-center"
-          data-tooltip="Move item to the center">
+          data-tooltip="Move to the center"
+          on:click={() => dispatch('center', record)}>
           <Icon src={RiDesignDragMoveLine} />
         </button>
       </section>

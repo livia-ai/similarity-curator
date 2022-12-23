@@ -86,6 +86,10 @@
     box-shadow: 0 0 24px rgba(0, 0, 0, 0.4);
   }
 
+  .card:hover img {
+    transform: scale(1.04,1.04);
+  }
+
   .front, .back {
     backface-visibility: hidden;
     position: absolute;

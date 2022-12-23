@@ -17,9 +17,9 @@
 		records.setCenter(anchor, zoom);
 	}
 
-	const onSelect = record => {
-		selected = record;
-		// records.setCenter(record, zoom)
+	const onCenter = ({ detail }) => {
+		records.setCenter(detail, zoom);
+		selected = null;
 	}
 </script>
 
@@ -36,7 +36,7 @@
 			{#each $records as record, idx (record.id)}
 				<li 
 					animate:flip={{ delay: 10 * idx, duration: d => 30 * Math.sqrt(d) }} 
-					on:click={() => onSelect(record) }>
+					on:click={() => selected = record}>
 					<Cell delay={10 * idx} src={record.image_url} museum={record.museum} />
 				</li>
 			{/each}
@@ -50,7 +50,8 @@
 	{#if Boolean(selected)}
 		<Details 
 			record={selected} 
-			on:close={() => selected = null} />
+			on:close={() => selected = null} 
+			on:center={onCenter} />
 	{/if}
 </div>
 
