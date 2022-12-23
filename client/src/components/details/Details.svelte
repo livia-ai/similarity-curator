@@ -26,7 +26,7 @@
   const onAddToCollection = evt => {
     const { clientX, clientY } = evt;
 
-    const cartEl = document.querySelector('.livia-cart');
+    const cartEl = document.querySelector('.livia-cart-control');
     const { x, y } = cartEl.getBoundingClientRect();
 
     animation = {

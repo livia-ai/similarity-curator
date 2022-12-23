@@ -3,12 +3,15 @@
   import { records } from '../store/Records.js';
   import Cell from './Cell.svelte';
 	import NeighbourhoodControl from '../controls/neighbourhood/NeighbourhoodControl.svelte';
-	import Cart from '../cart/Cart.svelte';
+	import CartIcon from '../cart/CartIcon.svelte';
+	import CartPanel from '../cart/CartPanel.svelte';
   import Details from '../details/Details.svelte';
 
 	let zoom;
 
 	let selected;
+
+	let isCartOpen = false;
 
 	const onChangeZoom = ({ detail }) => {
 		// Value range is 0 to 1. Zoom is 1 to 500
@@ -27,7 +30,7 @@
 	<section class="top">
 		<div class="inner">
 			<NeighbourhoodControl on:change={onChangeZoom} />
-			<Cart />
+			<CartIcon on:openCollection={() => isCartOpen = true} />
 		</div>
 	</section>
 
@@ -48,9 +51,7 @@
 		</ul>
 	</section>
 
-	<section class="bottom">
-
-	</section>
+	<section class="bottom"></section>
 
 	{#if Boolean(selected)}
 		<Details 
@@ -58,12 +59,17 @@
 			on:close={() => selected = null} 
 			on:center={onCenter} />
 	{/if}
+
+	{#if isCartOpen}
+		<CartPanel />
+	{/if}
 </div>
 
 <style>
 	.app-container {
 		height: 100vh;
 		position: relative;
+		overflow: hidden;
 	}
 
 	section.top, section.bottom {

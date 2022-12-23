@@ -1,14 +1,13 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
   import { collection } from '../store/MyCollection';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import RiFinanceShoppingBasketLine from 'svelte-icons-pack/ri/RiFinanceShoppingBasketLine';
 
-  const onClick = () => {
-    console.log('basket:', $collection);
-  }
+  const dispatch = createEventDispatcher();
 </script>
 
-<button class="livia-cart" on:click="{onClick}">
+<button class="livia-cart-control" on:click={() => dispatch('openCollection')}>
   <div class="cart-icon">
     <Icon src={RiFinanceShoppingBasketLine} />
   </div>
@@ -19,7 +18,7 @@
 </button>
 
 <style>
-  .livia-cart {
+  .livia-cart-control {
     position: absolute;
     top: 22px;
     right: 10px;
