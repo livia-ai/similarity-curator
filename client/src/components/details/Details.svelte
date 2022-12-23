@@ -8,10 +8,13 @@
   import { collection } from '../store/MyCollection';
 
   import WienMuseum from './logos/WienMuseum.svelte';
+    import ToCartAnimation from './ToCartAnimation.svelte';
 
   export let record;
 
   let wrapperEl; 
+
+  let animation;
 
   const dispatch = createEventDispatcher();
 
@@ -20,9 +23,20 @@
       dispatch('close');
   }
 
-  const onAddToCollection = () => {
+  const onAddToCollection = evt => {
+    const { clientX, clientY } = evt;
+
+    const cartEl = document.querySelector('.livia-cart');
+    const { x, y } = cartEl.getBoundingClientRect();
+
+    animation = {
+      from: [clientX, clientY],
+      to: [x, y]
+    };
+
     collection.add(record);
-    dispatch('close');
+
+    setTimeout(() => dispatch('close'), 125);
   }
 </script>
 
@@ -73,6 +87,10 @@
       </section>
     </footer>
   </div>
+
+  {#if Boolean(animation)}
+    <ToCartAnimation {...animation} /> 
+  {/if}
 </div>
 
 <style>
