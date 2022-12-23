@@ -1,6 +1,6 @@
 <script>
   import Icon from 'svelte-icons-pack/Icon.svelte';
-  import BsBasket3 from 'svelte-icons-pack/bs/BsBasket3';
+  import RiFinanceShoppingBasketLine from 'svelte-icons-pack/ri/RiFinanceShoppingBasketLine';
 
   let count = 0;
 
@@ -13,7 +13,7 @@
 
 <button class="livia-cart" on:click="{onClick}">
   <div class="cart-icon">
-    <Icon src={BsBasket3} />
+    <Icon src={RiFinanceShoppingBasketLine} />
   </div>
 
   {#if count > 0}
@@ -29,8 +29,8 @@
     cursor: pointer;
   }
   .cart-icon {
-    color: #fff;
-    font-size: 28px;
+    fill: #fff;
+    font-size: 30px;
     position: relative;
   }
 

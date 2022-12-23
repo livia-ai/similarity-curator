@@ -3,7 +3,7 @@
   import { fade } from 'svelte/transition';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import CgClose from 'svelte-icons-pack/cg/CgClose';
-  import BsBasket3 from 'svelte-icons-pack/bs/BsBasket3';
+  import RiFinanceShoppingBasketLine from 'svelte-icons-pack/ri/RiFinanceShoppingBasketLine';
   import RiDesignDragMoveLine from 'svelte-icons-pack/ri/RiDesignDragMoveLine';
 
   import WienMuseum from './logos/WienMuseum.svelte';
@@ -42,7 +42,7 @@
         <button 
           data-tooltip="Add to my collection"
           on:click={() => dispatch('add', record)}>
-          <Icon src={BsBasket3} />
+          <Icon src={RiFinanceShoppingBasketLine} />
         </button>
       </section>
 
@@ -129,7 +129,7 @@
   }
 
   section {
-    font-size: 30px;
+    font-size: 34px;
     display: flex;
     justify-content: center;
     align-items: center;
