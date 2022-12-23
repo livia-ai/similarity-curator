@@ -1,5 +1,11 @@
 <!-- A double-sided card that can be used for transitions -->
 <script>
+  import { createEventDispatcher } from 'svelte';
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import AiOutlineSearch from 'svelte-icons-pack/ai/AiOutlineSearch';
+
+  const dispatch = createEventDispatcher();
+
   export let src;
   export let museum;
   export let delay;
@@ -9,6 +15,8 @@
   let color;
   let frontSrc;
   let backSrc = src;
+
+  let showButton = true;
 
   // Runs file downloads through the server-side proxy
   const getDownloadUrl = url => url.includes('sammlung.wienmuseum.at') ? `/api/proxy?url=${url}` : url;
@@ -27,6 +35,11 @@
     else if (museum === 'MAK')
       color = 'blue';
   }
+
+  const onClickDetails = evt => {
+    evt.stopPropagation(); 
+    dispatch('details')
+  }
 </script>
 
 <div 
@@ -34,13 +47,24 @@
   class:flipped={frontSrc === backSrc}
   class:flipping={frontSrc !== backSrc}
   on:click>
+
   <div class="card" data-delay={`${delay}ms`}>
     <div class="front">
 
     </div>
     <div class="back">
       {#if backSrc}
-        <img src={getDownloadUrl(backSrc)} width="120" height="120" alt="Flippable back" />
+        {#if showButton}
+          <div class="show-details">
+            <button on:click={onClickDetails}>
+              <Icon src={AiOutlineSearch} />
+            </button>
+          </div>
+        {/if}
+
+        <img 
+          src={getDownloadUrl(backSrc)} 
+          alt="Flippable back" />
       {/if}
     </div>
   </div>
@@ -71,9 +95,7 @@
 
   .card {
     transform-style: preserve-3d;
-
     cursor: pointer;
-
     width: 100%;
     height: 100%;
   }
@@ -86,9 +108,12 @@
     box-shadow: 0 0 24px rgba(0, 0, 0, 0.4);
   }
 
-  .card:hover img {
+  /*
+  .card:hover img, 
+  .card:hover .show-details {
     transform: scale(1.04,1.04);
   }
+  */
 
   .front, .back {
     backface-visibility: hidden;
@@ -111,5 +136,30 @@
 
   .back {
     transform: rotateY(0deg);
+  }
+
+  .back .show-details {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: none;
+  }
+
+  .back:hover .show-details {
+    display: flex;
+  }
+
+  .back .show-details button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.45);
+    fill: #fff;
+    padding: 10px;
+    font-size: 26px;
+    border-radius: 5px 0 0 0;
   }
 </style>

@@ -35,9 +35,14 @@
 		<ul class="grid-container">
 			{#each $records as record, idx (record.id)}
 				<li 
-					animate:flip={{ delay: 10 * idx, duration: d => 30 * Math.sqrt(d) }} 
-					on:click={() => selected = record}>
-					<Cell delay={10 * idx} src={record.image_url} museum={record.museum} />
+					animate:flip={{ delay: 10 * idx, duration: d => 30 * Math.sqrt(d) }}>
+
+					<Cell 
+						delay={10 * idx} 
+						src={record.image_url} 
+						museum={record.museum} 
+						on:click={() => records.setCenter(record, zoom)}
+						on:details={() => selected = record} />
 				</li>
 			{/each}
 		</ul>

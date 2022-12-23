@@ -36,11 +36,14 @@
       <img src={record.image_url} alt={record.title} />
     </div>
 
-    <h1>{record.title}</h1>
+    {#if Boolean(record.title)}
+      <h1>{record.title}</h1>
+    {/if}
+
     <footer>
       <section>
         <button 
-          data-tooltip="Add to my collection"
+          data-tooltip="Zu meiner Sammlung"
           on:click={() => dispatch('add', record)}>
           <Icon src={RiFinanceShoppingBasketLine} />
         </button>
@@ -48,7 +51,7 @@
 
       <section>
         <button 
-          data-tooltip="Visit at the Wien Museum"
+          data-tooltip="Im Wien Museum ansehen"
           on:click={() => window.open(record.record_url, '_blank')}>
           <WienMuseum />
         </button>
@@ -57,7 +60,7 @@
       <section>
         <button 
           class="move-to-center"
-          data-tooltip="Move to the center"
+          data-tooltip="In die Mitte schieben"
           on:click={() => dispatch('center', record)}>
           <Icon src={RiDesignDragMoveLine} />
         </button>
