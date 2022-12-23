@@ -5,6 +5,7 @@
   import CgClose from 'svelte-icons-pack/cg/CgClose';
   import RiFinanceShoppingBasketLine from 'svelte-icons-pack/ri/RiFinanceShoppingBasketLine';
   import RiDesignDragMoveLine from 'svelte-icons-pack/ri/RiDesignDragMoveLine';
+  import { collection } from '../store/MyCollection';
 
   import WienMuseum from './logos/WienMuseum.svelte';
 
@@ -17,6 +18,11 @@
   const onClick = evt => {
     if (evt.target === wrapperEl)
       dispatch('close');
+  }
+
+  const onAddToCollection = () => {
+    collection.add(record);
+    dispatch('close');
   }
 </script>
 
@@ -44,7 +50,7 @@
       <section>
         <button 
           data-tooltip="Zu meiner Sammlung"
-          on:click={() => dispatch('add', record)}>
+          on:click={onAddToCollection}>
           <Icon src={RiFinanceShoppingBasketLine} />
         </button>
       </section>

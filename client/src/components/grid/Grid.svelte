@@ -1,6 +1,6 @@
 <script>
 	import { flip } from 'svelte/animate';
-  import { records } from '../store/Store.js';
+  import { records } from '../store/Records.js';
   import Cell from './Cell.svelte';
 	import NeighbourhoodControl from '../controls/neighbourhood/NeighbourhoodControl.svelte';
 	import Cart from '../cart/Cart.svelte';

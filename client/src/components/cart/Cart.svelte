@@ -1,13 +1,10 @@
 <script>
+  import { collection } from '../store/MyCollection';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import RiFinanceShoppingBasketLine from 'svelte-icons-pack/ri/RiFinanceShoppingBasketLine';
 
-  let count = 0;
-
-  let basket = [];
-
   const onClick = () => {
-    console.log('basket:', basket);
+    console.log('basket:', $collection);
   }
 </script>
 
@@ -16,8 +13,8 @@
     <Icon src={RiFinanceShoppingBasketLine} />
   </div>
 
-  {#if count > 0}
-    <span class="count">{count}</span>
+  {#if $collection.length > 0}
+    <span class="count">{$collection.length}</span>
   {/if}
 </button>
 
@@ -38,16 +35,16 @@
     position: absolute;
     background-color: red;
     display: flex;
-    top: -4px;
-    right: -4px;
+    top: -8px;
+    right: -9px;
     justify-content: center;
     align-items: center;
-    padding-bottom: 2px;
-    width: 25px;
-    height: 25px;
+    padding-bottom: 1px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     color: #fff;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
   }
 </style>

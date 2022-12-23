@@ -50,7 +50,7 @@ const gridSort = arr => ([
   arr[24]
 ]).filter(v => v);
 
-const createStore = () => {
+const createRecords = () => {
 
   const { subscribe, set } = writable([]);
 
@@ -83,4 +83,4 @@ const createStore = () => {
 
 }
 
-export const records = createStore();
+export const records = createRecords();
