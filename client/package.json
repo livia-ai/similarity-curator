@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "astro-icon": "^0.8.0",
-    "svelte": "^3.49.0"
+    "svelte": "^3.49.0",
+    "svelte-icons-pack": "^2.0.0"
   }
 }

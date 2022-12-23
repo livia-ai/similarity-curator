@@ -70,7 +70,7 @@
 <style>
   .neighbourhood {
     position: absolute;
-    right: 0;
+    right: 70px;
     bottom: 12px;
     width: 200px;
     height: 40px;

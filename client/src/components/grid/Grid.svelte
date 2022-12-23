@@ -3,8 +3,12 @@
   import { records } from '../store/Store.js';
   import Cell from './Cell.svelte';
 	import NeighbourhoodControl from '../controls/neighbourhood/NeighbourhoodControl.svelte';
+	import Cart from '../cart/Cart.svelte';
+  import Details from '../details/Details.svelte';
 
 	let zoom;
+
+	let selected;
 
 	const onChangeZoom = ({ detail }) => {
 		// Value range is 0 to 1. Zoom is 1 to 500
@@ -12,12 +16,18 @@
 		const anchor = $records[12];
 		records.setCenter(anchor, zoom);
 	}
+
+	const onSelect = record => {
+		selected = record;
+		// records.setCenter(record, zoom)
+	}
 </script>
 
 <div class="app-container">
 	<section class="top">
 		<div class="inner">
 			<NeighbourhoodControl on:change={onChangeZoom} />
+			<Cart />
 		</div>
 	</section>
 
@@ -26,7 +36,7 @@
 			{#each $records as record, idx (record.id)}
 				<li 
 					animate:flip={{ delay: 10 * idx, duration: d => 30 * Math.sqrt(d) }} 
-					on:click={() => records.setCenter(record, zoom) }>
+					on:click={() => onSelect(record) }>
 					<Cell delay={10 * idx} src={record.image_url} museum={record.museum} />
 				</li>
 			{/each}
@@ -36,6 +46,12 @@
 	<section class="bottom">
 
 	</section>
+
+	{#if Boolean(selected)}
+		<Details 
+			record={selected} 
+			on:close={() => selected = null} />
+	{/if}
 </div>
 
 <style>

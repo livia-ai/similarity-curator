@@ -40,8 +40,6 @@
     </div>
     <div class="back">
       {#if backSrc}
-        <div class="shading" 
-          style={`background-color: ${color}`} />
         <img src={getDownloadUrl(backSrc)} width="120" height="120" alt="Flippable back" />
       {/if}
     </div>
@@ -88,10 +86,6 @@
     box-shadow: 0 0 24px rgba(0, 0, 0, 0.4);
   }
 
-  .card:hover img {
-    transform: scale(1.04,1.04);
-  }
-
   .front, .back {
     backface-visibility: hidden;
     position: absolute;
@@ -113,17 +107,5 @@
 
   .back {
     transform: rotateY(0deg);
-  }
-
-  .shading {
-    border-radius: 3px;
-    opacity: 0.2;
-    position: relative;
-    z-index: 1;
-    display: none;
-  }
-
-  .card:hover .shading {
-    display: none;
   }
 </style>
