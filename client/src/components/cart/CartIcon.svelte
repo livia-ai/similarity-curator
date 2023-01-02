@@ -7,7 +7,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<button class="livia-cart-control" on:click={() => dispatch('openCollection')}>
+<button class="livia-cart-control" on:click={() => dispatch('toggleCollection')}>
   <div class="cart-icon">
     <Icon src={RiFinanceShoppingBasketLine} />
   </div>
@@ -20,22 +20,30 @@
 <style>
   .livia-cart-control {
     position: absolute;
-    top: 22px;
-    right: 10px;
+    top: 12px;
+    right: 0px;
     cursor: pointer;
   }
+  
   .cart-icon {
     fill: #fff;
     font-size: 30px;
     position: relative;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: transparent;
+  }
+
+  .cart-icon:hover {
+    background-color: rgba(255, 255, 255, 0.15);
   }
 
   .count {
     position: absolute;
     background-color: red;
     display: flex;
-    top: -8px;
-    right: -9px;
+    top: 2px;
+    right: 1px;
     justify-content: center;
     align-items: center;
     padding-bottom: 1px;

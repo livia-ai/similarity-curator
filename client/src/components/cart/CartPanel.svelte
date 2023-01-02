@@ -3,6 +3,8 @@
   import { tweened } from 'svelte/motion';
   import { cubicOut } from 'svelte/easing';
 
+  import { fade, fly } from 'svelte/transition';
+
   const config = {
     duration: 180,
     easing: cubicOut
@@ -10,12 +12,10 @@
 
   let right = tweened(-380, config);
   
-  onMount(() => {
-    $right = 0;
-  });
+
 </script>
 
-<div class="cart-panel" style={`right: ${$right}px`}>
+<div transition:fly="{{ x: 380, duration: 250 }}" class="cart-panel">
 
 </div>
 
@@ -23,6 +23,7 @@
   .cart-panel {
     position: absolute;
     top: 0;
+    right: 0;
     width: 380px;
     height: 100%;
     background-image: linear-gradient(#9e9e9ee6,#3e3e3ecf);

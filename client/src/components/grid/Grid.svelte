@@ -30,7 +30,7 @@
 	<section class="top">
 		<div class="inner">
 			<NeighbourhoodControl on:change={onChangeZoom} />
-			<CartIcon on:openCollection={() => isCartOpen = true} />
+			<CartIcon on:toggleCollection={() => isCartOpen = !isCartOpen} />
 		</div>
 	</section>
 
