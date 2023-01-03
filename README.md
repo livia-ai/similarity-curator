@@ -27,6 +27,6 @@ The API is implemented as a [Fastify](https://www.fastify.io/) application, and 
 
 You can start the whole application stack via `docker compose up`. For client-development: 
 
-- use `docker compose --file docker-compose.dev.yml up`. This will start only the backend, with ports exposed.  
+- use `docker compose --file docker-compose.dev.yml up --build`. This will start only the backend, with ports exposed. __Data will be indexed the first time you start. This may take a while.__
 - Change into the `/client` folder.
 - Run `npm install` and `npm start` to start the client application in dev mode.
