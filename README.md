@@ -19,10 +19,14 @@ The server backend for the application. Consists of:
 The API is implemented as a [Fastify](https://www.fastify.io/) application, and sits behind an 
 [NGINX](https://www.nginx.com/) reverse proxy. The whole stack is containerized via [Docker](https://www.docker.com/).
 
+## Preparing data
+
+...TODO...
+
 ## Developer Information
 
 You can start the whole application stack via `docker compose up`. For client-development: 
 
 - use `docker compose --file docker-compose.dev.yml up`. This will start only the backend, with ports exposed.  
 - Change into the `/client` folder.
-- Run `npm start` to start the client application in dev mode.
+- Run `npm install` and `npm start` to start the client application in dev mode.
