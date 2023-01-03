@@ -24,6 +24,12 @@
 		records.setCenter(detail, zoom);
 		selected = null;
 	}
+
+	const onMoreLikeThis = ({ detail }) => {
+		zoom = 0;
+		isCartOpen = false;
+		records.setCenter(detail, 1);
+	}
 </script>
 
 <div class="app-container">
@@ -61,7 +67,9 @@
 	{/if}
 
 	{#if isCartOpen}
-		<CartPanel />
+		<CartPanel 
+			on:close={() => isCartOpen = false}
+			on:moreLikeThis={onMoreLikeThis} />
 	{/if}
 </div>
 

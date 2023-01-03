@@ -1,22 +1,45 @@
 <script>
-  import { onMount } from 'svelte';
-  import { tweened } from 'svelte/motion';
-  import { cubicOut } from 'svelte/easing';
+  import { createEventDispatcher } from 'svelte';
+  import { fly } from 'svelte/transition';
+  import { collection } from '../store/MyCollection';
+  import CartRow from './CartRow.svelte';
 
-  import { fade, fly } from 'svelte/transition';
+  const dispatch = createEventDispatcher();
 
-  const config = {
-    duration: 180,
-    easing: cubicOut
-  };
-
-  let right = tweened(-380, config);
-  
-
+  const onDeleteItem = ({ detail }) =>
+    collection.remove(detail);
 </script>
 
-<div transition:fly="{{ x: 380, duration: 250 }}" class="cart-panel">
+<div 
+  class="cart-panel" 
+  transition:fly="{{ x: 380, duration: 250 }}">
+  
+  <header>
+    <h1>Meine Sammlung</h1>
+    <button on:click={() => dispatch('close')}>X</button>
+  </header>
 
+  <main class:empty={$collection === 0}>
+    {#if $collection.length === 0}
+      <h2>
+        Deine Sammlung ist leer.
+      </h2>
+      <p>
+        Füge Deiner Sammlung Kunstwerke hinzu.
+      </p>
+    {:else}
+      <table>
+        <tbody>
+          {#each $collection as item}
+            <CartRow 
+              item={item} 
+              on:delete={onDeleteItem} 
+              on:moreLikeThis />
+          {/each}
+        </tbody>
+      </table>
+    {/if}
+  </main>
 </div>
 
 <style>
@@ -24,10 +47,12 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 380px;
+    width: 560px;
+    max-width: 80%;
     height: 100%;
     background-image: linear-gradient(#9e9e9ee6,#3e3e3ecf);
     backdrop-filter: blur(3px);
     box-shadow: 0 0 120px rgb(0, 0, 0, 0.8);
+    z-index: 1;
   }
 </style>
