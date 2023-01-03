@@ -1,6 +1,8 @@
 <script>
   import { createEventDispatcher } from 'svelte';
   import { fly } from 'svelte/transition';
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import CgClose from 'svelte-icons-pack/cg/CgClose';
   import { collection } from '../store/MyCollection';
   import CartRow from './CartRow.svelte';
 
@@ -16,7 +18,9 @@
   
   <header>
     <h1>Meine Sammlung</h1>
-    <button on:click={() => dispatch('close')}>X</button>
+    <button on:click={() => dispatch('close')}>
+      <Icon src={CgClose} />
+    </button>
   </header>
 
   <main class:empty={$collection === 0}>
@@ -47,12 +51,34 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 560px;
+    width: 640px;
     max-width: 80%;
     height: 100%;
     background-image: linear-gradient(#9e9e9ee6,#3e3e3ecf);
     backdrop-filter: blur(3px);
     box-shadow: 0 0 120px rgb(0, 0, 0, 0.8);
+    overflow-y: auto;
     z-index: 1;
+  }
+
+  header {
+    color: #fff;
+    display: flex;
+    padding: 20px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  header h1 {
+    font-size: 1.8em;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  :global(.cart-panel header svg) {
+    font-size: 30px;
   }
 </style>

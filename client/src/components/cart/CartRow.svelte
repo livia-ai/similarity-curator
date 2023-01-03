@@ -3,6 +3,14 @@
 
   export let item;
 
+  const MUSEUMS = {
+    WM: 'Wien Museum',
+    MAK: 'MAK',
+    BEL: 'Belvedere'
+  };
+
+  console.log(item);
+
   const dispatch = createEventDispatcher();
 </script>
 
@@ -14,12 +22,22 @@
   </td>
 
   <td>
+    <h5>
+      {MUSEUMS[item.museum]}
+    </h5>
+
     {#if item.title}
       <h4>{item.title}</h4>
     {/if}
 
     {#if item.description}
       <p>{item.description}</p>
+    {/if}
+
+    {#if !item.title && !item.description}
+      <p>
+        <em>Ohne Titel</em>
+      </p>
     {/if}
 
     <div class="actions">
@@ -45,7 +63,7 @@
   }
 
   td {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
     color: #fff;
     min-width: 160px;
     padding: 20px;
@@ -53,8 +71,16 @@
     vertical-align: top;
   }
 
+  td:last-child {
+    width: 99%;
+  }
+
+  td h5 {
+    font-size: 0.8em;
+  }
+
   td h4 {
-    font-weight: 700;
+    font-weight: 600;
   }
 
   td h4,
@@ -71,7 +97,7 @@
     position: absolute;
     bottom: 20px;
     left: 20px;
-    font-size: 14px;
+    font-size: 0.8em;
   }
   
   td .actions button:hover {
