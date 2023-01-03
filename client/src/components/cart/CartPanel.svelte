@@ -5,6 +5,8 @@
   import CgClose from 'svelte-icons-pack/cg/CgClose';
   import CgRadioCheck from 'svelte-icons-pack/cg/CgRadioCheck';
   import CgCheckO from 'svelte-icons-pack/cg/CgCheckO';
+  import CgSearch from 'svelte-icons-pack/cg/CgSearch';
+  import RiFinanceShoppingBasketLine from 'svelte-icons-pack/ri/RiFinanceShoppingBasketLine';
   import { collection } from '../store/MyCollection';
   import CartRow from './CartRow.svelte';
 
@@ -19,20 +21,31 @@
   transition:fly="{{ x: 380, duration: 250 }}">
   
   <header>
-    <h1>Meine Sammlung</h1>
+    {#if $collection.length > 0}
+      <h1>Meine Sammlung</h1>
+    {/if}
     <button on:click={() => dispatch('close')}>
       <Icon src={CgClose} />
     </button>
   </header>
 
-  <main class:empty={$collection === 0}>
+  <main class:empty={$collection.length === 0}>
     {#if $collection.length === 0}
-      <h2>
-        Deine Sammlung ist leer.
-      </h2>
-      <p>
-        Füge Deiner Sammlung Kunstwerke hinzu.
-      </p>
+      <div>
+        <div class="icon-wrapper">
+          <Icon src={CgSearch} />
+        </div>
+
+        <h2>
+          Deine Sammlung ist leer.
+        </h2>
+
+        <p>
+          Bewege die Maus über die Bilder. Klicke das <Icon src={CgSearch} /> Icon für 
+          die Detailansicht. Mit dem <Icon src={RiFinanceShoppingBasketLine} /> Icon nimmst Du 
+          das Kunstwerk in Deine Sammlung auf.  
+        </p>
+      </div>
     {:else}
       <p class="instructions">
         <Icon src={$collection.length > 4 ? CgCheckO : CgRadioCheck} /> Füge deiner Sammlung 5 bis 15 Kunstwerke zu.
@@ -74,17 +87,53 @@
     color: #fff;
   }
 
+  main.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0 40px;
+  }
+
+  main.empty > div {
+    text-align: center;
+    line-height: 1.8em;
+  }
+
+  main.empty h2 {
+    font-size: 1.6em;
+    padding-bottom: 0.65em;
+  }
+
+  :global(main.empty svg) {
+    display: inline;
+    font-size: 1.3em;
+    fill: #fff;
+  }
+
+  :global(main.empty .icon-wrapper svg) {
+    display: block;
+    margin: 0 auto;
+    font-size: 160px;
+    color: rgba(255,255,255,0.35);
+    padding: 20px;
+  }
+
   header {
     color: #fff;
     display: flex;
-    padding: 20px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
   }
 
   header h1 {
     font-size: 1.8em;
+    padding: 20px;
+  }
+
+  header button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
   }
 
   p.instructions {
