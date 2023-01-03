@@ -1,6 +1,6 @@
 # LiviaAI Exploratory Browser
 
-An experimental web application to browse connections between artworks, identified through AI in the LiviaAI project.
+An experimental web application to browse artworks by similarity, as computed through AI in the LiviaAI project.
 
 ## Client
 
@@ -18,3 +18,11 @@ The server backend for the application. Consists of:
 
 The API is implemented as a [Fastify](https://www.fastify.io/) application, and sits behind an 
 [NGINX](https://www.nginx.com/) reverse proxy. The whole stack is containerized via [Docker](https://www.docker.com/).
+
+## Developer Information
+
+You can start the whole application stack via `docker compose up`. For client-development: 
+
+- use `docker compose --file docker-compose.dev.yml up`. This will start only the backend, with ports exposed.  
+- Change into the `/client` folder.
+- Run `npm start` to start the client application in dev mode.
