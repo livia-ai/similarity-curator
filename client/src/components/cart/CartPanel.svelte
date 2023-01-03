@@ -3,6 +3,8 @@
   import { fly } from 'svelte/transition';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import CgClose from 'svelte-icons-pack/cg/CgClose';
+  import CgRadioCheck from 'svelte-icons-pack/cg/CgRadioCheck';
+  import CgCheckO from 'svelte-icons-pack/cg/CgCheckO';
   import { collection } from '../store/MyCollection';
   import CartRow from './CartRow.svelte';
 
@@ -32,6 +34,16 @@
         Füge Deiner Sammlung Kunstwerke hinzu.
       </p>
     {:else}
+      <p class="instructions">
+        <Icon src={$collection.length > 4 ? CgCheckO : CgRadioCheck} /> Füge deiner Sammlung 5 bis 15 Kunstwerke zu.
+
+        {#if $collection.length > 4}
+          <button on:click={() => dispatch('shareMyCollection')}>
+            Meine Sammlung teilen
+          </button>
+        {/if}
+      </p>
+
       <table>
         <tbody>
           {#each $collection as item}
@@ -59,6 +71,7 @@
     box-shadow: 0 0 120px rgb(0, 0, 0, 0.8);
     overflow-y: auto;
     z-index: 1;
+    color: #fff;
   }
 
   header {
@@ -72,6 +85,26 @@
 
   header h1 {
     font-size: 1.8em;
+  }
+
+  p.instructions {
+    padding: 0 20px 30px 20px;
+  }
+
+  p.instructions button {
+    display: block;
+    border: 2px solid #60bcff;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: rgb(0, 133, 204, 0.25);
+    border-radius: 3px;
+  }
+
+  :global(p.instructions svg) {
+    display: inline;
+    font-size: 20px;
+    vertical-align: text-top;
+    padding-right: 3px;
   }
 
   table {

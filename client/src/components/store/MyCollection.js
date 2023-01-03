@@ -4,7 +4,8 @@ const createMyCollection = () => {
 
   const { subscribe, update } = writable([]);
 
-  const add = record => update(records => ([...records, record]));
+  const add = record => update(records => 
+    records.find(r => r.id === record.id) ? records : ([...records, record]));
 
   const remove = record => update(records => records.filter(r => {
     const toRemove = r.id === record.id && r.museum === record.museum;

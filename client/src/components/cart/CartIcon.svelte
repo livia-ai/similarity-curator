@@ -34,7 +34,7 @@
     background-color: transparent;
   }
 
-  .cart-icon:hover {
+  .livia-cart-control:hover .cart-icon {
     background-color: rgba(255, 255, 255, 0.15);
   }
 

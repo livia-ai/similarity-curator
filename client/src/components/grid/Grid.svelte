@@ -1,4 +1,5 @@
 <script>
+	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
   import { records } from '../store/Records.js';
   import Cell from './Cell.svelte';
@@ -32,7 +33,7 @@
 	}
 </script>
 
-<div class="app-container">
+<div out:fade class="app-container">
 	<section class="top">
 		<div class="inner">
 			<NeighbourhoodControl on:change={onChangeZoom} />
@@ -69,7 +70,8 @@
 	{#if isCartOpen}
 		<CartPanel 
 			on:close={() => isCartOpen = false}
-			on:moreLikeThis={onMoreLikeThis} />
+			on:moreLikeThis={onMoreLikeThis} 
+			on:shareMyCollection />
 	{/if}
 </div>
 
