@@ -1,4 +1,6 @@
-# LiviaAI Exploratory Browser
+# LiviaAI Similarity Curator
+
+![Screenshot](screenshot.jpg)
 
 An experimental web application to browse artworks by similarity, as computed through AI in the LiviaAI project.
 
