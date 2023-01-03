@@ -15,8 +15,8 @@
 	let isCartOpen = false;
 
 	const onChangeZoom = ({ detail }) => {
-		// Value range is 0 to 1. Zoom is 1 to 500
-		zoom = detail * 499 + 1;
+		// Value range is 0 to 1. Zoom is 1 to 1000
+		zoom = detail * 999 + 1;
 		const anchor = $records[12];
 		records.setCenter(anchor, zoom);
 	}
@@ -27,7 +27,7 @@
 	}
 
 	const onMoreLikeThis = ({ detail }) => {
-		zoom = 0;
+		zoom = 1;
 		isCartOpen = false;
 		records.setCenter(detail, 1);
 	}

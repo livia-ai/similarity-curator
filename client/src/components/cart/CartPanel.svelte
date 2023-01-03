@@ -22,7 +22,7 @@
   
   <header>
     {#if $collection.length > 0}
-      <h1>Meine Sammlung</h1>
+      <h1>Meine Sammlung ({$collection.length} Werke)</h1>
     {/if}
     <button on:click={() => dispatch('close')}>
       <Icon src={CgClose} />
@@ -47,8 +47,8 @@
         </p>
       </div>
     {:else}
-      <p class="instructions">
-        <Icon src={$collection.length > 4 ? CgCheckO : CgRadioCheck} /> Füge deiner Sammlung 5 bis 15 Kunstwerke zu.
+      <p class="instructions" class:ready={$collection.length > 4}>
+        <Icon src={$collection.length > 4 ? CgCheckO : CgRadioCheck} /> Füge deiner Sammlung 5 oder mehr Kunstwerke zu.
 
         {#if $collection.length > 4}
           <button on:click={() => dispatch('shareMyCollection')}>
@@ -142,10 +142,10 @@
 
   p.instructions button {
     display: block;
-    border: 2px solid #60bcff;
+    border: 2px solid #00ff00;
     padding: 10px;
     margin-top: 20px;
-    background-color: rgb(0, 133, 204, 0.25);
+    background-color: #00ff003b;
     border-radius: 3px;
   }
 
@@ -154,6 +154,10 @@
     font-size: 20px;
     vertical-align: text-top;
     padding-right: 3px;
+  }
+
+  :global(p.instructions.ready svg) {
+    color: #00ff00;
   }
 
   table {
