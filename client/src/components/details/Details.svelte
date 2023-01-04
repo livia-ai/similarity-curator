@@ -6,11 +6,12 @@
   import RiFinanceShoppingBasketLine from 'svelte-icons-pack/ri/RiFinanceShoppingBasketLine';
   import RiDesignDragMoveLine from 'svelte-icons-pack/ri/RiDesignDragMoveLine';
   import { collection } from '../store/MyCollection';
-
+  import ToCartAnimation from './ToCartAnimation.svelte';
   import WienMuseum from './logos/WienMuseum.svelte';
-    import ToCartAnimation from './ToCartAnimation.svelte';
-
+    
   export let record;
+
+  console.log(record);
 
   let wrapperEl; 
 
@@ -53,7 +54,7 @@
 
   <div class="details">
     <div class="image-wrapper">
-      <img src={record.image_url} alt={record.title} />
+      <img class="preview" src={record.image_url} alt={record.title} />
     </div>
 
     {#if Boolean(record.title)}
@@ -70,11 +71,25 @@
       </section>
 
       <section>
-        <button 
-          data-tooltip="Im Wien Museum ansehen"
-          on:click={() => window.open(record.record_url, '_blank')}>
-          <WienMuseum />
-        </button>
+        {#if record.museum === 'MAK'}
+          <button 
+            data-tooltip="Im MAK ansehen"
+            on:click={() => window.open(record.record_url, '_blank')}>
+            <img class="logo" src="/assets/logo-mak.png" alt="MAK Wien" />
+          </button>
+        {:else if record.museum === 'WM'}
+          <button 
+            data-tooltip="Im Wien Museum ansehen"
+            on:click={() => window.open(record.record_url, '_blank')}>
+            <WienMuseum />
+          </button>
+        {:else if record.museum === 'BEL'}
+          <button 
+            data-tooltip="Im Belvedere ansehen"
+            on:click={() => window.open(record.record_url, '_blank')}>
+            <img class="logo" src="/assets/logo-belvedere.png" alt="Belvedere" />
+          </button>
+        {/if}
       </section>
 
       <section>
@@ -129,7 +144,7 @@
     align-items: center;
   }
 
-  .details img {
+  .details img.preview {
     max-width: 100%;
     max-height: calc(100vh - 400px);
     object-fit: contain;
@@ -177,6 +192,16 @@
     color: #fff;
     fill: #fff;
     background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  section button img.logo {
+    width: 220px;
+    padding: 0 30px;
+    opacity: 45%;
+  }
+
+  section button:hover img.logo {
+    opacity: 1;
   }
 
   :global(section button.move-to-center svg) {
