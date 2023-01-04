@@ -1,6 +1,9 @@
 <script>
 	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
+	import Icon from 'svelte-icons-pack/Icon.svelte';
+	import CgSearch from 'svelte-icons-pack/cg/CgSearch';
+	import HiOutlineRefresh from 'svelte-icons-pack/hi/HiOutlineRefresh';
   import { records } from '../store/Records.js';
   import Cell from './Cell.svelte';
 	import NeighbourhoodControl from '../controls/neighbourhood/NeighbourhoodControl.svelte';
@@ -36,10 +39,24 @@
 <div out:fade class="app-container">
 	<section class="top">
 		<div class="inner">
-			<NeighbourhoodControl 
-				value={(zoom - 1) / 999}
-				on:change={onChangeZoom} />
-			<CartIcon on:toggleCollection={() => isCartOpen = !isCartOpen} />
+			<div class="inner-left">
+				<button>
+					<Icon src={CgSearch} />
+				</button>
+
+				<button 
+					disabled={zoom === 1}
+					on:click={() => records.setCenter($records[12], zoom)}>
+					<Icon src={HiOutlineRefresh} />
+				</button>
+			</div>
+
+			<div class="inner-right">
+				<NeighbourhoodControl 
+					value={(zoom - 1) / 999}
+					on:change={onChangeZoom} />
+				<CartIcon on:toggleCollection={() => isCartOpen = !isCartOpen} />
+			</div>
 		</div>
 	</section>
 
@@ -98,6 +115,27 @@
 		height: 100%;
 		margin: 0 auto;
 		position: relative;
+	}
+
+	section .inner-left {
+		font-size: 30px;
+		color: #fff;
+		height: 100%;
+		display: flex;
+		align-items: center;
+	}
+
+	section .inner-left button {
+		margin: 0 10px 0 10px;
+		transition: opacity 0.2s;
+	}
+
+	section .inner-left button:disabled {
+		opacity: 0.4;
+	}
+
+	:global(section .inner-left path) {
+		stroke: #fff;
 	}
 
 	.grid-container {
