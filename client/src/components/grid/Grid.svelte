@@ -8,7 +8,7 @@
 	import CartPanel from '../cart/CartPanel.svelte';
   import Details from '../details/Details.svelte';
 
-	let zoom;
+	let zoom = 1;
 
 	let selected;
 
@@ -36,7 +36,9 @@
 <div out:fade class="app-container">
 	<section class="top">
 		<div class="inner">
-			<NeighbourhoodControl on:change={onChangeZoom} />
+			<NeighbourhoodControl 
+				value={(zoom - 1) / 999}
+				on:change={onChangeZoom} />
 			<CartIcon on:toggleCollection={() => isCartOpen = !isCartOpen} />
 		</div>
 	</section>

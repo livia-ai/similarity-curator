@@ -3,6 +3,8 @@
   
   const dispatch = createEventDispatcher();
 
+  export let value;
+
   const width = 200;
   const height = 40; 
 
@@ -11,9 +13,7 @@
 
   let grabbed = false;
   
-  let offsetX = 0;
-
-  let value = 0;
+  $: offsetX = value * width;
 
   $: radius = minRadius + (maxRadius - minRadius) * value;
 
@@ -36,6 +36,7 @@
   const onPointerMove = evt => {
     if (grabbed) {
       offsetX = Math.min(Math.max(0, evt.offsetX), width);
+      
       value = offsetX / width;
 
       debounce(value);
