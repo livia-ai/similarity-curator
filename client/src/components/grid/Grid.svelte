@@ -2,10 +2,10 @@
 	import { fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import Icon from 'svelte-icons-pack/Icon.svelte';
-	import CgSearch from 'svelte-icons-pack/cg/CgSearch';
 	import HiOutlineRefresh from 'svelte-icons-pack/hi/HiOutlineRefresh';
   import { records } from '../store/Records.js';
   import Cell from './Cell.svelte';
+	import SearchControl from '../controls/search/SearchControl.svelte';
 	import NeighbourhoodControl from '../controls/neighbourhood/NeighbourhoodControl.svelte';
 	import CartIcon from '../cart/CartIcon.svelte';
 	import CartPanel from '../cart/CartPanel.svelte';
@@ -40,9 +40,8 @@
 	<section class="top">
 		<div class="inner">
 			<div class="inner-left">
-				<button>
-					<Icon src={CgSearch} />
-				</button>
+				<SearchControl 
+					on:search={({ detail }) => records.search(detail) }/>
 
 				<button 
 					disabled={zoom === 1}

@@ -142,6 +142,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    pointer-events: none;
+  }
+
+  .details * {
+    pointer-events: all;
   }
 
   .details img.preview {
