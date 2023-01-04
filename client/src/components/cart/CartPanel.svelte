@@ -12,66 +12,87 @@
 
   const dispatch = createEventDispatcher();
 
+  let wrapper;
+
   const onDeleteItem = ({ detail }) =>
     collection.remove(detail);
+
+  const onClickWrapper = evt => {
+    if (evt.target === wrapper)
+      dispatch('close')
+  }
 </script>
 
 <div 
-  class="cart-panel" 
-  transition:fly="{{ x: 380, duration: 250 }}">
-  
-  <header>
-    {#if $collection.length > 0}
-      <h1>Meine Sammlung ({$collection.length} Werke)</h1>
-    {/if}
-    <button on:click={() => dispatch('close')}>
-      <Icon src={CgClose} />
-    </button>
-  </header>
+  class="cart-panel-wrapper" 
+  bind:this={wrapper}
+  on:click={onClickWrapper}>
 
-  <main class:empty={$collection.length === 0}>
-    {#if $collection.length === 0}
-      <div>
-        <div class="icon-wrapper">
-          <Icon src={CgSearch} />
+  <div 
+    class="cart-panel" 
+    transition:fly="{{ x: 380, duration: 250 }}">
+    
+    <header>
+      {#if $collection.length > 0}
+        <h1>Meine Sammlung ({$collection.length} Werke)</h1>
+      {/if}
+      <button on:click={() => dispatch('close')}>
+        <Icon src={CgClose} />
+      </button>
+    </header>
+
+    <main class:empty={$collection.length === 0}>
+      {#if $collection.length === 0}
+        <div>
+          <div class="icon-wrapper">
+            <Icon src={CgSearch} />
+          </div>
+
+          <h2>
+            Deine Sammlung ist leer.
+          </h2>
+
+          <p>
+            Bewege die Maus über die Bilder. Klicke das <Icon src={CgSearch} /> Icon für 
+            die Detailansicht. Mit dem <Icon src={RiFinanceShoppingBasketLine} /> Icon nimmst Du 
+            das Kunstwerk in Deine Sammlung auf.  
+          </p>
         </div>
+      {:else}
+        <p class="instructions" class:ready={$collection.length > 4}>
+          <Icon src={$collection.length > 4 ? CgCheckO : CgRadioCheck} /> Füge deiner Sammlung 5 oder mehr Kunstwerke zu.
 
-        <h2>
-          Deine Sammlung ist leer.
-        </h2>
-
-        <p>
-          Bewege die Maus über die Bilder. Klicke das <Icon src={CgSearch} /> Icon für 
-          die Detailansicht. Mit dem <Icon src={RiFinanceShoppingBasketLine} /> Icon nimmst Du 
-          das Kunstwerk in Deine Sammlung auf.  
+          {#if $collection.length > 4}
+            <button on:click={() => dispatch('shareMyCollection')}>
+              Meine Sammlung teilen
+            </button>
+          {/if}
         </p>
-      </div>
-    {:else}
-      <p class="instructions" class:ready={$collection.length > 4}>
-        <Icon src={$collection.length > 4 ? CgCheckO : CgRadioCheck} /> Füge deiner Sammlung 5 oder mehr Kunstwerke zu.
 
-        {#if $collection.length > 4}
-          <button on:click={() => dispatch('shareMyCollection')}>
-            Meine Sammlung teilen
-          </button>
-        {/if}
-      </p>
-
-      <table>
-        <tbody>
-          {#each $collection as item}
-            <CartRow 
-              item={item} 
-              on:delete={onDeleteItem} 
-              on:moreLikeThis />
-          {/each}
-        </tbody>
-      </table>
-    {/if}
-  </main>
+        <table>
+          <tbody>
+            {#each $collection as item}
+              <CartRow 
+                item={item} 
+                on:delete={onDeleteItem} 
+                on:moreLikeThis />
+            {/each}
+          </tbody>
+        </table>
+      {/if}
+    </main>
+  </div>
 </div>
 
 <style>
+  .cart-panel-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
   .cart-panel {
     position: absolute;
     top: 0;
