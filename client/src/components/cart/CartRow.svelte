@@ -9,8 +9,6 @@
     BEL: 'Belvedere'
   };
 
-  console.log(item);
-
   const dispatch = createEventDispatcher();
 </script>
 

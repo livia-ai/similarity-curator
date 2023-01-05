@@ -130,7 +130,7 @@
 	}
 
 	section .inner-left button:disabled {
-		opacity: 0.4;
+		opacity: 0.15;
 	}
 
 	:global(section .inner-left path) {
