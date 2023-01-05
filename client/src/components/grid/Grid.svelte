@@ -29,6 +29,13 @@
 		selected = null;
 	}
 
+	const onShuffle = () => {
+		if (zoom === 1)
+			records.randomize();
+		else
+			records.setCenter($records[12], zoom);
+	}
+
 	const onMoreLikeThis = ({ detail }) => {
 		zoom = 1;
 		isCartOpen = false;
@@ -44,8 +51,7 @@
 					on:search={({ detail }) => records.search(detail) }/>
 
 				<button 
-					disabled={zoom === 1}
-					on:click={() => records.setCenter($records[12], zoom)}>
+					on:click={onShuffle}>
 					<Icon src={HiOutlineRefresh} />
 				</button>
 			</div>
