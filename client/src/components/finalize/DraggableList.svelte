@@ -42,8 +42,8 @@
        on:dragenter={() => hovering = index}
        class:is-active={hovering === index}>
 
+       <img src={n.image_url} alt={n.title || `Thumbnail ${n.id}`}/>
 
-       <img src={n.image_url} />
     </div>
   {/each}
 </div>
@@ -58,7 +58,7 @@
     padding: 0;
     display: inline-block;
     margin: 10px;
-    background-color: white;
+    cursor: move;
   }
 
   .list-item img {

@@ -1,13 +1,36 @@
 <script>
 	import DraggableList from './DraggableList.svelte';
+	import Icon from 'svelte-icons-pack/Icon.svelte';
+	import RiDesignDragMove2Fill from 'svelte-icons-pack/ri/RiDesignDragMove2Fill';
 	import { collection } from '../store/MyCollection';
+
+	let title;
+
+	const onChangeTitle = evt => title = evt.target.value;
 </script>
 
 <div class="app-container">
-	
-  Finalize...
+	<main>
+		<h1>Meine Sammlung</h1>
 
-	<DraggableList list={$collection} />
+		<div class="enter-name">
+			<input
+				type="text" 
+				placeholder="Gib Deiner Sammlung einen Namen..." 
+				spellcheck="false" 
+				on:input={onChangeTitle} />
+		</div>
+
+		<DraggableList list={$collection} />
+
+		<p class="drag-instructions">
+			Du kannst die Reihenfolge per <Icon src={RiDesignDragMove2Fill} /> Drag-and-Drop ändern.
+		</p>
+
+		<button class="hero" disabled={!title}>
+			Fertig!
+		</button>
+	</main>
 </div>
 
 <style>
@@ -15,24 +38,54 @@
 		height: 100vh;
 		position: relative;
 		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		color: #fff;
+		text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
 	}
 
-	:global(.dragdroplist .list) {
-		flex-direction: row !important;
-	} 
+	h1 {
+		font-size: 1.8em;
+	}
 
-	:global(.dragdroplist > .list > div.item) {
+	input {
+		background-color: transparent;
+		outline: none;
+		border-style: solid;
+		border-color: #fff;
+		border-width: 0 0 1px 0;
+		width: 480px;
+		padding: 5px 0;
+		margin: 50px 0;
+	}
+
+	.drag-instructions {
+		margin: 10px 0;
+		text-shadow: none;
+	}
+
+	:global(.drag-instructions svg) {
 		display: inline;
+		fill: #fff;
 	}
-	
-	:global(.dragdroplist div.buttons) {
-		display: none !important;
+
+	button.hero {
+		padding: 16px 70px;
+    margin-top: 30px;
+    border: 1px solid #fff;
+    background-color: rgba(255, 255, 255, 0.08);
+    font-size: 1.2em;
 	}
-	
-	:global(.dragdroplist div.content img) {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 2px;
+
+	button.hero:hover {
+		background-color: rgba(255, 255, 255, 0.12);
+	}
+
+	button.hero:disabled {
+    background-color: transparent;
+    border-color: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.2);
 	}
 </style>
