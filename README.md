@@ -25,6 +25,33 @@ The API is implemented as a [Fastify](https://www.fastify.io/) application, and 
 
 ...TODO...
 
+## HTTPS Configuration
+<details>
+<summary>Cick to expand</summary>
+
+Installation of HTTPS certificates via Certbot and LetsEncrypt is prepared in the Docker setup,
+but requires manual steps. The process is based on [this guide](https://mindsers.blog/post/https-using-nginx-certbot-docker/).
+
+#### 1. Test if the setup works correctly
+
+```sh
+docker compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d livia.rainersimon.io
+```
+
+#### 2. Test if the setup works correctly
+
+With HTTPS still disabled, download certificate from LetsEncrypt:
+
+```sh
+docker compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d livia.rainersimon.io
+```
+
+#### 3. After the certificate is available
+
+- Edit NGINX config file in `nginx/config/default.conf` and uncomment the HTTPS config.
+- Restart everything with `docker compose up`
+</details>
+
 ## Developer Information
 
 You can start the whole application stack via `docker compose up`. For client-development: 
