@@ -26,11 +26,11 @@ The API is implemented as a [Fastify](https://www.fastify.io/) application, and 
 ...TODO...
 
 ## HTTPS Configuration
-<details>
 
 Installation of HTTPS certificates via Certbot and LetsEncrypt is prepared in the Docker setup,
 but requires manual steps. The process is based on [this guide](https://mindsers.blog/post/https-using-nginx-certbot-docker/).
 
+<details>
 <summary>Read more</summary>
 
 #### 1. Test if the setup works correctly
