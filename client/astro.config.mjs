@@ -3,7 +3,7 @@ import svelte from '@astrojs/svelte';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  outDir: './dist',
+  output: 'server',
 	integrations: [svelte(), tailwind()],
 	vite: {
     ssr: {

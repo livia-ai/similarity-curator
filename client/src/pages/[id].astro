@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import './index.css';
+
+const { id } = Astro.params;
+
+const response = await fetch('http://localhost:3000/collection/' + id);
+const data = await response.json();
+
+---
+<Base>
+	<main>
+    <h1>Meine Sammlung</h1>
+
+    <ul>
+      {data.items.map((item, idx) => (
+        <li>
+          <img src={item.image_url} alt={item.title || `Thumbnail ${item.id}`}/>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Base>
+
+<style>
+  ul {
+    display: inline-block;
+  }
+
+  li {
+    display: block;
+    padding: 0;
+    display: inline-block;
+    margin: 10px;
+  }
+
+  li img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+</style>
