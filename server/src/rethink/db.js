@@ -32,20 +32,16 @@ export const init = () => {
   });
 }
 
-export const createCollection = collection => {
+export const storeCollection = collection => {
   const record = {
     id: nanoid(), 
-    ...collection
+    items: collection
   };
 
-  console.log(collection);
-
-  /*
-  connect()
+  return connect()
     .then(({ conn, table }) => table
       .insert(record, { conflict: 'replace' })
       .run(conn));
-  */
 }
 
 export const getCollection = id => {

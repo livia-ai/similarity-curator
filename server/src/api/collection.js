@@ -1,7 +1,12 @@
-export const createCollection = (req, res) => {
-  console.log('Create Collection');
+import db from '../rethink/index.js';
 
-}
+export const createCollection = (req, res) =>
+  db.storeCollection(req.body)
+    .then(() => ({ response: 'ok' }))
+    .catch(error => 
+      res.code(500)
+         .header('Content-Type', 'application/json')
+         .send({ error: 'Internal server error' }));
 
 export const getCollection = (req, res) => {
   console.log('Get Collection');

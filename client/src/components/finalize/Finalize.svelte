@@ -7,6 +7,25 @@
 	let title;
 
 	const onChangeTitle = evt => title = evt.target.value;
+
+	const onShareCollection = () => {
+		fetch('/api/collection', {
+			method: 'POST',
+    	headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json'
+    	},
+    	body: JSON.stringify($collection)
+		}).then(res => res.json())
+			.then(data => {
+				// TODO - UI feedback
+				console.log(data);
+			})
+			.catch(error => {
+				// TODO - UI feedback
+				console.error(error);
+			});
+	}
 </script>
 
 <div class="app-container">
@@ -27,7 +46,10 @@
 			Du kannst die Reihenfolge per <Icon src={RiDesignDragMove2Fill} /> Drag-and-Drop ändern.
 		</p>
 
-		<button class="hero" disabled={!title}>
+		<button 
+			class="hero" 
+			disabled={!title}
+			on:click={onShareCollection}>
 			Fertig!
 		</button>
 	</main>

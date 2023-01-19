@@ -1,5 +1,5 @@
 <script>
-  import {flip} from 'svelte/animate';
+  import { flip } from 'svelte/animate';
 
   export let list;
   
@@ -27,7 +27,6 @@
     const start = i;
     event.dataTransfer.setData('text/plain', start);
   }
-
 </script>
 
 <div class="list">

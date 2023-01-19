@@ -11,8 +11,6 @@
     
   export let record;
 
-  console.log(record);
-
   let wrapperEl; 
 
   let animation;
