@@ -15,7 +15,7 @@ const API = (opts = {}) => {
   server.get('/search', search);
   server.get('/knn', knn);
   server.get('/random', random);
-  server.get('/collection', getCollection);
+  server.get('/collection/:id', getCollection);
   server.post('/collection', createCollection);
 
   // Helper proxy method to get around CORS and deep linking blocks

@@ -44,13 +44,8 @@ export const storeCollection = collection => {
       .run(conn));
 }
 
-export const getCollection = id => {
-  // TODO
+export const getCollection = id =>
   connect() 
     .then(({ conn, table }) => table
-      .orderBy({ index: r.desc('timestamp') })
-      .skip(offset)
-      .limit(size)
-      .run(conn))
-    .then(cursor => cursor.toArray());
-}
+      .get(id)
+      .run(conn));
