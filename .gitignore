@@ -5,3 +5,4 @@ server/db/exhibitions/data/*
 server/db/fulltext/data/*
 server/db/vectorspace/data/*
 !.gitkeep
+.env

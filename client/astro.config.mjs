@@ -4,13 +4,13 @@ import tailwind from '@astrojs/tailwind';
 import node from '@astrojs/node';
 
 export default defineConfig({
-  // output: 'server',
-  // adapter: node({
-  //   mode: 'standalone'
-  // }),
-  // server: {
-  //   port: 3001
-  // },
+  output: 'server',
+  adapter: node({
+    mode: 'standalone'
+  }),
+  server: {
+    port: 3001
+  },
 	integrations: [svelte(), tailwind()],
 	vite: {
     ssr: {

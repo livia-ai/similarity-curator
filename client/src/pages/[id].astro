@@ -2,16 +2,15 @@
 import Base from '../layouts/Base.astro';
 import ExhibitImage from '../components/exhibit/ExhibitImage.svelte';
 
-/*
 import './index.css';
 
 const { id } = Astro.params;
 
-const response = await fetch('http://localhost:3000/collection/' + id);
-const data = await response.json();
-*/
+const host = import.meta.env.API_HOST;
+const port = import.meta.env.API_PORT;
 
-const data = []
+const response = await fetch(`http://${host}:${port}/collection/${id}`);
+const data = await response.json();
 ---
 <Base>
 	<main>

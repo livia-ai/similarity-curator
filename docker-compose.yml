@@ -81,6 +81,18 @@ services:
     volumes:
       - ./certbot/www/:/var/www/certbot/:rw
       - ./certbot/conf/:/etc/letsencrypt/:rw
+  client:
+    depends_on:
+      - server
+    build:
+      context: client
+      dockerfile: Dockerfile
+    command: sh -c "npm run start:prod"
+    expose:
+      - 3001
+    restart: always
+    networks:
+      - net
 
 networks:
   net:
