@@ -1,6 +1,8 @@
 import r from 'rethinkdb';
-import { nanoid } from 'nanoid';
+import { customAlphabet } from 'nanoid';
 import Config from '../Config.js';
+
+const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 20);
 
 const RETHINK_CONFIG = {
   host: Config.HOSTS.RETHINK,

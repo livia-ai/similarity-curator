@@ -4,6 +4,7 @@
 	import DraggableList from './DraggableList.svelte';
 	import Icon from 'svelte-icons-pack/Icon.svelte';
 	import RiDesignDragMove2Fill from 'svelte-icons-pack/ri/RiDesignDragMove2Fill';
+	import BsClipboard from 'svelte-icons-pack/bs/BsClipboard';
 	import { collection } from '../store/MyCollection';
 
 	let title;
@@ -13,6 +14,8 @@
 	let link;
 
 	let error;
+
+	let alert = false;
 
 	const onShareCollection = () => {
 		fetch('/api/collection', {
@@ -28,12 +31,17 @@
 		}).then(res => res.json())
 			.then(data => {
 				link = `${window.location.origin}/${data.id}`;
-				copy(link);
 			})
 			.catch(error => {
 				// TODO - UI feedback
 				console.error(error);
 			});
+	}
+
+	const onCopy = () => {
+		copy(link);
+		alert = true;
+		setTimeout(() => alert = false, 1000);
 	}
 </script>
 
@@ -72,13 +80,25 @@
 						Deine Sammlung ist jetzt unter diesem Link online:
 					</p>
 
-					<p>
-						<a href={link} target="_blank">{link}</a>
-					</p>
+					<div class="link">
+						{#if alert}
+							<span>Link kopiert!</span>
+						{:else}
+							<span>{link}</span>
+						{/if}
+						<button on:click={onCopy}>
+							<Icon src={BsClipboard} />
+						</button>
+					</div>
 
 					<p>
 						Wir freuen uns, dass Dich LiviaAI beim Zusammenstellen Deiner Ausstellung 
 						unterstützen konnte, und hoffen es hat Spaß gemacht!
+					</p>
+
+					<p>
+						<a href={link} target="_blank">Meine Sammlung ansehen</a>
+						<a href="/" target="_blank">Neue Sammlung starten</a>
 					</p>
 				</div>
 			</div>
@@ -174,7 +194,7 @@
 
 	:global(.confetti-holder) {
 		position: absolute !important;
-		top: 40px;
+		top: 60px;
 		left: 50%;
 		z-index: 1;
 	}
@@ -188,5 +208,36 @@
 		padding: 30px 0;
 		font-size: 1.2em;
 		line-height: 160%;
+	}
+
+	.popup a {
+		text-decoration: underline;
+		display: inline-block;
+		margin: 0 5px;
+		font-size: 0.9em;
+	}
+
+	.link {
+		border: 1px solid #00ff00;
+		background-color: #00ff003b;
+		display: inline-block;
+    position: relative;
+    padding-right: 50px;
+	}
+	
+	.link span {
+    display: inline-block;
+    padding: 10px;
+    font-size: 1.2em;
+	}
+
+	.link button {
+    font-size: 1.3em;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    border-left: 1px solid #00ff00;
 	}
 </style>
