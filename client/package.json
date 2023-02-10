@@ -18,7 +18,9 @@
   "dependencies": {
     "@astrojs/node": "0.0.0-node-standalone-20221011210529",
     "astro-icon": "^0.8.0",
+    "copy-to-clipboard": "^3.3.3",
     "svelte": "^3.49.0",
+    "svelte-confetti": "^1.2.2",
     "svelte-icons-pack": "^2.0.0"
   }
 }

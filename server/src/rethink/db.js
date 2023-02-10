@@ -33,15 +33,18 @@ export const init = () => {
 }
 
 export const storeCollection = collection => {
+  const id = nanoid();
+
   const record = {
-    id: nanoid(), 
+    id, 
     ...collection
   };
 
   return connect()
     .then(({ conn, table }) => table
       .insert(record, { conflict: 'replace' })
-      .run(conn));
+      .run(conn))
+    .then(() => id);
 }
 
 export const getCollection = id =>

@@ -2,7 +2,7 @@ import db from '../rethink/index.js';
 
 export const createCollection = (req, res) =>
   db.storeCollection(req.body)
-    .then(() => ({ response: 'ok' }))
+    .then(id => ({ response: 'ok', id }))
     .catch(() => 
       res.code(500)
          .header('Content-Type', 'application/json')

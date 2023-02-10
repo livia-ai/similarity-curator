@@ -1,4 +1,6 @@
 <script>
+	import Confetti from 'svelte-confetti';
+	import copy from 'copy-to-clipboard';
 	import DraggableList from './DraggableList.svelte';
 	import Icon from 'svelte-icons-pack/Icon.svelte';
 	import RiDesignDragMove2Fill from 'svelte-icons-pack/ri/RiDesignDragMove2Fill';
@@ -7,6 +9,10 @@
 	let title;
 
 	const onChangeTitle = evt => title = evt.target.value;
+
+	let link;
+
+	let error;
 
 	const onShareCollection = () => {
 		fetch('/api/collection', {
@@ -21,8 +27,8 @@
 			})
 		}).then(res => res.json())
 			.then(data => {
-				// TODO - UI feedback
-				console.log(data);
+				link = `${window.location.origin}/${data.id}`;
+				copy(link);
 			})
 			.catch(error => {
 				// TODO - UI feedback
@@ -55,6 +61,34 @@
 			on:click={onShareCollection}>
 			Fertig!
 		</button>
+
+		{#if link}
+			<div class="popup-wrapper">
+				<div class="popup success">
+					<Confetti x={[-1.5, 1.5]} amount={200} delay={[120, 220]} fallDistance="200px" />
+
+					<h1>Gratulation!</h1>
+					<p>
+						Deine Sammlung ist jetzt unter diesem Link online:
+					</p>
+
+					<p>
+						<a href={link} target="_blank">{link}</a>
+					</p>
+
+					<p>
+						Wir freuen uns, dass Dich LiviaAI beim Zusammenstellen Deiner Ausstellung 
+						unterstützen konnte, und hoffen es hat Spaß gemacht!
+					</p>
+				</div>
+			</div>
+		{:else if error}
+			<div class="popup-wrapper">
+				<div class="popup error">
+
+				</div>
+			</div>
+		{/if}
 	</main>
 </div>
 
@@ -112,5 +146,47 @@
     background-color: transparent;
     border-color: rgba(255,255,255,0.2);
     color: rgba(255,255,255,0.2);
+	}
+
+	.popup-wrapper {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+    background-image: linear-gradient(#9e9e9ef5,#3e3e3ee7);
+    backdrop-filter: blur(3px);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 0;
+	}
+
+	.popup {
+		position: relative;
+		width: 90vw;
+		height: 90vh;
+		max-width: 800px;
+		max-height: 640px;
+		padding: 60px;
+		color: #fff;
+	}
+
+	:global(.confetti-holder) {
+		position: absolute !important;
+		top: 40px;
+		left: 50%;
+		z-index: 1;
+	}
+
+
+	.popup h1 {
+		font-size: 2.5em;
+	}
+
+	.popup p {
+		padding: 30px 0;
+		font-size: 1.2em;
+		line-height: 160%;
 	}
 </style>
