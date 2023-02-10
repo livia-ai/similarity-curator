@@ -15,7 +15,10 @@
        'Accept': 'application/json',
        'Content-Type': 'application/json'
     	},
-    	body: JSON.stringify($collection)
+    	body: JSON.stringify({
+				title,
+				items: $collection
+			})
 		}).then(res => res.json())
 			.then(data => {
 				// TODO - UI feedback

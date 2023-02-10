@@ -12,14 +12,13 @@ const port = import.meta.env.API_PORT;
 const response = await fetch(`http://${host}:${port}/collection/${id}`);
 const data = await response.json();
 
-console.log(id);
 console.log(data);
 ---
 <Base>
 	<main>
     <div class="wrapper">
-      {id.items ? (
-        <h1>Meine Sammlung</h1>
+      {data.items ? (
+        <h1>{data.title}</h1>
 
         <ul>
           {data.items?.map(item => (

@@ -35,7 +35,7 @@ export const init = () => {
 export const storeCollection = collection => {
   const record = {
     id: nanoid(), 
-    items: collection
+    ...collection
   };
 
   return connect()
