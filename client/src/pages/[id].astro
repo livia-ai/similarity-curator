@@ -11,19 +11,29 @@ const port = import.meta.env.API_PORT;
 
 const response = await fetch(`http://${host}:${port}/collection/${id}`);
 const data = await response.json();
+
+console.log(id);
+console.log(data);
 ---
 <Base>
 	<main>
     <div class="wrapper">
-      <h1>Meine Sammlung</h1>
+      {id.items ? (
+        <h1>Meine Sammlung</h1>
 
-      <ul>
-        {data.items?.map(item => (
-          <li>
-            <ExhibitImage client:only item={item} />
-          </li>
-        ))}
-      </ul>
+        <ul>
+          {data.items?.map(item => (
+            <li>
+              <ExhibitImage client:only item={item} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="not-found">
+          <h1>404 Not Found</h1>
+          <p>Hier gibt's leider nichts zu sehen. <a href="/">Erfahre mehr über LiviaAI</a>.</p>
+        </div>
+      )}
     </div>
   </main>
 </Base>
@@ -49,6 +59,14 @@ const data = await response.json();
     padding-bottom: 0.5em;
     text-shadow: 0 0 7px rgba(0, 0, 0, 0.8);
     line-height: 160%;
+  }
+
+  p {
+    text-shadow: 0 0 7px rgba(0, 0, 0, 0.8);
+  }
+
+  a {
+    text-decoration: underline;
   }
 
   ul {

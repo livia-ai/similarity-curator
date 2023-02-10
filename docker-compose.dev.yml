@@ -6,7 +6,7 @@ services:
     expose:
       - 28015
     ports:
-      - 8081:8081
+      - 8080:8080
     restart: always
     volumes:
       - ./server/db/exhibitions/data:/app
