@@ -21,6 +21,23 @@ const { title } = Astro.props;
     </style>
   </head>
   <body>
+    <div class="banner">BETA</div>
     <slot />
   </body>
 </html>
+
+<style>
+  .banner {
+    position: fixed;
+    width: 400px;
+    background-color: #ed9900;
+    color: white;
+    border: 2px solid #ffe4b3;
+    font-size: 1.4em;
+    text-align: center;
+    font-weight: bold;
+    transform: rotateZ(-30deg);
+    top: 35px;
+    left: -100px;
+  }
+</style>
