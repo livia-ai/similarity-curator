@@ -11,7 +11,7 @@
   };
 
   const text = {
-    de: `Suche nach einem Begriff - zum Beispiel einem bestimmten Künstler, 
+    de: `Suche nach einem Begriff - zum Beispiel einem bestimmten  
          Thema oder Gegenstand - oder lass LiviaAI ein zufälliges Kunstwerk als Startpunkt für Dich wählen.`,
 
     en: `Search for a term - maybe a specific artist, theme or type

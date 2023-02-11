@@ -10,9 +10,9 @@ export default {
   DIMENSION: 192,
 
   HOSTS: {
-    ELASTIC: 'elastic', // elastic', 
-    QDRANT: 'qdrant', //'qdrant',   
-    RETHINK: 'rethinkdb', //'rethinkdb'
+    ELASTIC: 'elastic',
+    QDRANT: 'qdrant',   
+    RETHINK: 'rethinkdb',
   }
 
  };

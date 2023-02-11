@@ -12,10 +12,10 @@
 
   const text = {
     de: [
-          `Nimm mindestens 5 und höchstens 12 Kunstwerke in deine Ausstellung auf. Du kannst Deiner fertigen
-           Ausstellung einen Namen geben. LiviaAI wird Dich wieder dabei unterstützen wenn Du möchtest.`,
-          `Am Ende erhältst Du einen Link, den Du an Deine Freunde senden kannst, um Deine Ausstellung mit ihnen
-           zu teilen. Viel Spaß mit LiviaAI!`
+          `Nimm mindestens 5 Kunstwerke in deine Ausstellung auf. Du kannst Deiner fertigen
+           Ausstellung auch einen Namen geben. Am Ende erhältst Du einen Link, den Du an Deine Freunde senden kannst, um Deine Ausstellung mit ihnen
+           zu teilen.`,
+          `Viel Spaß mit LiviaAI!`
         ],
 
     en: [
