@@ -2,6 +2,7 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import AiOutlineSearch from 'svelte-icons-pack/ai/AiOutlineSearch';
   import ReadOnlyDetails from './ReadOnlyDetails.svelte';
+  import ProxiedImage from '../controls/ProxiedImage.svelte';
 
   export let item;
 
@@ -19,7 +20,7 @@
     </button>
   </div>
 
-  <img src={src} alt={alt} />
+  <ProxiedImage src={src} alt={alt} />
 </div>
 
 {#if showDetails}
