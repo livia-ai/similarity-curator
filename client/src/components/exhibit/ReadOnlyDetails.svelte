@@ -4,6 +4,7 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import CgClose from 'svelte-icons-pack/cg/CgClose';
   import WienMuseum from '../details/logos/WienMuseum.svelte';
+  import ProxiedImage from '../controls/ProxiedImage.svelte';
     
   export let item;
 
@@ -17,7 +18,7 @@
   }
 </script>
 
-<div class="details-wrapper" 
+<div class="exhibit-details-wrapper" 
   transition:fade={{ duration: 200 }}
   bind:this={wrapperEl}
   on:click={onClick}>
@@ -30,7 +31,7 @@
 
   <div class="details">
     <div class="image-wrapper">
-      <img class="preview" src={item.image_url} alt={item.title} />
+      <ProxiedImage class="preview" src={item.image_url} alt={item.title} />
     </div>
 
     {#if Boolean(item.title)}
@@ -62,7 +63,7 @@
 </div>
 
 <style>
-  .details-wrapper {
+  .exhibit-details-wrapper {
     position: absolute;
     top: 0;
     left: 0;
@@ -76,7 +77,7 @@
     z-index: 2;
   }
 
-  .details-close {
+  .exhibit-details-wrapper .details-close {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -84,11 +85,11 @@
     color: #ffffff7a;
   }
 
-  .details-close:hover {
+  .exhibit-details-wrapper .details-close:hover {
     color: #fff;
   }
 
-  .details {
+  .exhibit-details-wrapper .details {
     width: 80%;
     max-width: 600px;
     position: relative;
@@ -98,11 +99,11 @@
     pointer-events: none;
   }
 
-  .details * {
+  .exhibit-details-wrapper .details * {
     pointer-events: all;
   }
 
-  .details img.preview {
+  :global(.exhibit-details-wrapper .details img.preview) {
     max-width: 100%;
     max-height: calc(100vh - 400px);
     object-fit: contain;
@@ -128,7 +129,6 @@
     align-items: stretch;
     padding-top: 20px;
   }
-
 
   button img.logo {
     width: 220px;
