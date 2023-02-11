@@ -23,7 +23,9 @@
 </div>
 
 {#if showDetails}
-  <ReadOnlyDetails item={item} />
+  <ReadOnlyDetails 
+    item={item} 
+    on:close={() => showDetails = false} />
 {/if}
 
 <style> 
