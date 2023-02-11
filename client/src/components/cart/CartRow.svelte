@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+  import ProxiedImage from '../controls/ProxiedImage.svelte';
 
   export let item;
 
@@ -15,7 +16,7 @@
 <tr class="cart-item">
   <td>
     <a href={item.record_url} target="_blank">
-      <img src={item.image_url} alt={item.title} />
+      <ProxiedImage src={item.image_url} alt={item.title} />
     </a>
   </td>
 
@@ -53,7 +54,7 @@
 </tr>
 
 <style>
-  img {
+  :global(.cart-item td img) {
     width: 120px;
     height: 120px;
     object-fit: cover;

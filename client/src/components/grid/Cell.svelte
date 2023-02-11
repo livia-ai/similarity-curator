@@ -3,6 +3,7 @@
   import { createEventDispatcher } from 'svelte';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import AiOutlineSearch from 'svelte-icons-pack/ai/AiOutlineSearch';
+  import ProxiedImage from '../controls/ProxiedImage.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -17,9 +18,6 @@
   let backSrc = src;
 
   let showButton = true;
-
-  // Runs file downloads through the server-side proxy
-  const getDownloadUrl = url => url.includes('sammlung.wienmuseum.at') ? `/api/proxy?url=${url}` : url;
 
   $: {
     setTimeout(() => { 
@@ -62,8 +60,8 @@
           </div>
         {/if}
 
-        <img 
-          src={getDownloadUrl(backSrc)} 
+        <ProxiedImage 
+          src={backSrc} 
           alt="Flippable back" />
       {/if}
     </div>
@@ -100,20 +98,13 @@
     height: 100%;
   }
 
-  .card img {
+  :global(.card img) {
     position: absolute;
     top: 0;
     left: 0;
     border-radius: 3px;
     box-shadow: 0 0 24px rgba(0, 0, 0, 0.4);
   }
-
-  /*
-  .card:hover img, 
-  .card:hover .show-details {
-    transform: scale(1.04,1.04);
-  }
-  */
 
   .front, .back {
     backface-visibility: hidden;
@@ -122,7 +113,7 @@
     left: 0;
   }
 
-  .back img {
+  :global(.back img) {
     object-fit: cover;
     width: 100%;
     height: 100%;

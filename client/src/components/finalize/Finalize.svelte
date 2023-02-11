@@ -91,12 +91,12 @@
 					</div>
 
 					<p>
-						Wir freuen uns, dass Dich LiviaAI beim Zusammenstellen Deiner Ausstellung 
-						unterstützen konnte, und hoffen es hat Spaß gemacht!
+						Wir freuen uns, dass wir dich mit LiviaAI beim Zusammenstellen deiner Ausstellung 
+						unterstützen konnten. Wir hoffen es hat Spaß gemacht!
 					</p>
 
 					<p>
-						<a href="/" target="_blank">Eine neue Sammlung starten</a>
+						<a href="/" target="_blank">Stelle eine neue Sammlung zusammen</a>
 					</p>
 				</div>
 			</div>

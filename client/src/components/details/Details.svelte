@@ -8,6 +8,7 @@
   import { collection } from '../store/MyCollection';
   import ToCartAnimation from './ToCartAnimation.svelte';
   import WienMuseum from './logos/WienMuseum.svelte';
+  import ProxiedImage from '../controls/ProxiedImage.svelte';
     
   export let record;
 
@@ -52,7 +53,7 @@
 
   <div class="details">
     <div class="image-wrapper">
-      <img class="preview" src={record.image_url} alt={record.title} />
+      <ProxiedImage class="preview" src={record.image_url} alt={record.title} />
     </div>
 
     {#if Boolean(record.title)}
@@ -147,7 +148,7 @@
     pointer-events: all;
   }
 
-  .details img.preview {
+  :global(.details img.preview) {
     max-width: 100%;
     max-height: calc(100vh - 400px);
     object-fit: contain;
