@@ -66,7 +66,7 @@
     opacity: 0.65;
   }
 
-  img {
+  :global(.image-wrapper img) {
     width: 160px;
     height: 160px;
     object-fit: cover;
