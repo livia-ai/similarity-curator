@@ -51,7 +51,8 @@
 					on:search={({ detail }) => records.search(detail) }/>
 
 				<button 
-					on:click={onShuffle}>
+					on:click={onShuffle}
+					title="Neue Vorschläge">
 					<Icon src={HiOutlineRefresh} />
 				</button>
 			</div>

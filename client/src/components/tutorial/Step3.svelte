@@ -15,6 +15,9 @@
           `LiviaAI wird Dir zu jedem Kunstwerk ähnliche Werke zeigen, die sie mit ihrem Algorithmus in den 
            Sammlungen des Belvedere, des Museums für Angewandte Kunst und des Wien Museums gefunden hat.`,
 
+          `Mit dem Schieberegler bestimmst Du, wie ähnlich die Vorschläge sein sollen. Schiebe den Regler ganz nach
+           links, um die ähnlichsten Bilder zu sehen. Schiebe ihn weiter nach rechts, um auch zufällige Vorschläge zu erhalten.`,
+
           `Klicke Dich von Kunstwerk zu Kunstwerk. LiviaAI wird dir immer weitere ähnliche Werke vorschlagen.
            Wenn Dir ein Werk besonders gefällt, wähle es für Deine Ausstellung aus.` 
         ],

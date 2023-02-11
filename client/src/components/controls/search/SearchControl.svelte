@@ -27,7 +27,7 @@
   }
 </script>
 
-<button on:click={() => isOpen = true}>
+<button title="Suche" on:click={() => isOpen = true}>
   <Icon src={CgSearch} />
 </button>
 

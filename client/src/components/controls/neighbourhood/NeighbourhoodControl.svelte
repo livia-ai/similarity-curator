@@ -51,6 +51,7 @@
 </script>
 
 <div class="neighbourhood">
+  <span>ÄHNLICH</span>
   <svg width={width} height={height}>
     <line x1="0" y1="20" x2={width} y2={height / 2} />
 
@@ -66,6 +67,7 @@
         on:pointerup={onPointerUp} />
     </g>
   </svg>
+  <span>ZUFÄLLIG</span>
 </div>
 
 <style>
@@ -73,8 +75,20 @@
     position: absolute;
     right: 70px;
     bottom: 12px;
-    width: 200px;
+    width: 420px;
     height: 40px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+  }
+
+  .neighbourhood * {
+    display: inline-block;
+  }
+
+  .neighbourhood span {
+    font-weight: 600;
+    padding: 0 25px;
   }
 
   svg {
