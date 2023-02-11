@@ -20,7 +20,7 @@
     </button>
   </div>
 
-  <ProxiedImage src={src} alt={alt} />
+  <ProxiedImage class="thumbnail" src={src} alt={alt} />
 </div>
 
 {#if showDetails}
@@ -66,7 +66,7 @@
     opacity: 0.65;
   }
 
-  :global(.image-wrapper img) {
+  :global(.image-wrapper img.thumbnail) {
     width: 160px;
     height: 160px;
     object-fit: cover;
