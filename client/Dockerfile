@@ -1,7 +1,6 @@
 FROM node:lts-alpine
 
-WORKDIR dist
-COPY dist dist/
+WORKDIR src
 COPY package.json .
 COPY package-lock.json .
 COPY . .
