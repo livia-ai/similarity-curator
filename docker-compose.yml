@@ -54,6 +54,7 @@ services:
     build: 
       context: server
       dockerfile: Dockerfile
+    command: sh -c "npm start"
     expose: 
       - 3000
     restart: always
