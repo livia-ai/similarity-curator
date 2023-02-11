@@ -25,6 +25,19 @@ const data = await response.json();
             </li>
           ))}
         </ul>
+
+        <section class="about">
+          Diese Sammlung wurde mit <a href="https://livia-ai.github.io" target="_blank">LiviaAI</a> zusammengestellt. Ein Projekt der
+          <a href="https://www.donau-uni.ac.at/" target="_blank">Universität für Weiterbildung Krems</a> und dem 
+          <a href="https://www.ait.ac.at" target="_blank">Austrian Institute of Technology</a> in Partnerschaft mit dem 
+          <a href="https://www.belvedere.at/" target="_blank">Belvedere</a>, <a href="https://www.mak.at/" target="_blank">MAK Wien</a>
+          und <a href="https://www.wienmuseum.at/" target="_blank">Wien Museum</a>. Unterstützt durch den 
+          <a href="https://www.oeaw.ac.at/foerderungen/jubilaeumsfonds/1/ausschreibung-2017/1/jubilaeumsfonds-gefoerderte-projekte-2017-1" target="_blank">Jubiläumsfonds der Stadt Wien für die ÖAW</a>.
+        </section>
+
+        <section class="cta">
+          Möchtest du mehr erfahren? <a href="/">Stelle hier deine eigene Sammlung zusammen</a>!
+        </section>  
       ) : (
         <div class="not-found">
           <h1>404 Not Found</h1>
@@ -76,5 +89,19 @@ const data = await response.json();
     display: inline-block;
     margin: 10px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  }
+
+  section {
+    max-width: 800px;
+    text-align: center;
+    padding: 20px;
+  }
+
+  section.about {
+    opacity: 0.6;
+  }
+
+  section.cta {
+    font-size: 1.15em;
   }
 </style>
