@@ -81,10 +81,9 @@
 					</p>
 
 					<div class="link">
+						<a href={link} target="_blank">{link}</a>
 						{#if alert}
-							<span>Link kopiert!</span>
-						{:else}
-							<span>{link}</span>
+							<span>Link kopiert!</span>							
 						{/if}
 						<button on:click={onCopy}>
 							<Icon src={BsClipboard} />
@@ -97,8 +96,7 @@
 					</p>
 
 					<p>
-						<a href={link} target="_blank">Meine Sammlung ansehen</a>
-						<a href="/" target="_blank">Neue Sammlung starten</a>
+						<a href="/" target="_blank">Eine neue Sammlung starten</a>
 					</p>
 				</div>
 			</div>
@@ -224,11 +222,28 @@
     position: relative;
     padding-right: 50px;
 	}
-	
-	.link span {
+
+	.link a {
     display: inline-block;
     padding: 10px;
     font-size: 1.2em;
+		text-decoration: none;
+	}
+
+	.link a:hover {
+		text-decoration: underline;
+	}
+
+	.link span {
+    display: block;
+    padding: 10px;
+    font-size: 1.2em;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #5b965b;
 	}
 
 	.link button {
