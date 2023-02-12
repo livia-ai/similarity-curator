@@ -61,7 +61,7 @@
     cursor: move;
   }
 
-  :global(.list-item .proxied img) {
+  :global(.list-item .proxied) {
     width: 160px;
     height: 160px;
     object-fit: cover;
