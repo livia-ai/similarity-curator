@@ -1,5 +1,6 @@
 <script>
   import { flip } from 'svelte/animate';
+  import ProxiedImage from '../controls/ProxiedImage.svelte';
 
   export let list;
   
@@ -41,7 +42,7 @@
        on:dragenter={() => hovering = index}
        class:is-active={hovering === index}>
 
-       <img src={n.image_url} alt={n.title || `Thumbnail ${n.id}`}/>
+       <ProxiedImage class="proxied" src={n.image_url} alt={n.title || `Thumbnail ${n.id}`}/>
 
     </div>
   {/each}
@@ -60,7 +61,7 @@
     cursor: move;
   }
 
-  .list-item img {
+  :global(.list-item .proxied img) {
     width: 160px;
     height: 160px;
     object-fit: cover;
