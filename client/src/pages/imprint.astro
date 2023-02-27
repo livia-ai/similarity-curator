@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import './index.css';
+---
+<Base>
+  <div class="container">
+    <main>
+      <h1>Impressum</h1>
+
+      <p>
+        Dieser Demonstrator wird gehosted von:
+      </p>
+
+      <p>
+        <a href="http://www.ait.ac.at/">AIT Austrian Institute of Technology GmbH</a><br/>
+        Giefinggasse 4<br/>
+        1210 Wien<br/>
+        Austria<br/>
+      </p>
+
+      <p>
+        Data Protection Officer <a href="mailto:dpo@ait.ac.at">dpo@ait.ac.at</a>
+      </p>
+    </main>
+  </div>
+</Base>
+
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+  }
+
+  main {
+    padding: 120px 0;
+    width: 60%;
+    max-width: 900px;
+    color: #fff;
+    font-size: 1.125em;
+    line-height: 180%;
+  }
+
+  h1 {
+    font-size: 2em;
+    padding-bottom: 2em;
+  }
+
+  p {
+    padding: 0.8em 0;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+</style>
