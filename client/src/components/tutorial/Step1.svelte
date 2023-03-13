@@ -12,7 +12,7 @@
 
   const text = {
     de: `Entdecke Deinen persönlichen Pfad durch Wiens Kunstschätze. 
-         Gestalte Deine eigene virtuelle Auststellung und teile sie mit Freunden.
+         Gestalte Deine eigene virtuelle Ausstellung und teile sie mit Freunden.
          Unsere Künstliche Intelligenz LiviaAI unterstützt Dich dabei!`,
 
     en: `Discover your personal path through Vienna's cultural treasures.
